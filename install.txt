@@ -1,5 +1,13 @@
+Poste eleve :
 sudo apt install default-jre
 sudo apt install openjfx
+
+Developpement :
+snap install eclipse --classic
+https://cs108.epfl.ch/archive/20/g/openjfx.html
+https://pragmaticways.com/how-to-add-javafx-to-eclipse-the-easy-way/
+
+
 
 compil eclipse :
 --module-path /home/sandra/eclipse/javafx-sdk-11.0.2/lib --add-modules=javafx.controls -Djdk.gtk.version=2
