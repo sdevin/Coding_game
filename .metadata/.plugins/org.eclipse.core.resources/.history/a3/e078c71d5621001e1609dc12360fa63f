@@ -1,6 +1,0 @@
-package Config;
-
-public class FichConf3 extends FichConf{
-
-	
-}
