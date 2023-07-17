@@ -1,0 +1,14 @@
+package Objects;
+
+import java.io.IOException;
+
+public class Light extends StaticObject{
+	
+	private String color;
+
+	public Light(String imageName, int x, int y, int width, int angle, boolean isObstacle, String color) throws IOException {
+		super(imageName, x, y, width, angle, isObstacle);
+		this.color = color;
+	}
+	
+}

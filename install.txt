@@ -1,0 +1,5 @@
+sudo apt install default-jre
+sudo apt install openjfx
+
+compil eclipse :
+--module-path /home/sandra/eclipse/javafx-sdk-11.0.2/lib --add-modules=javafx.controls -Djdk.gtk.version=2

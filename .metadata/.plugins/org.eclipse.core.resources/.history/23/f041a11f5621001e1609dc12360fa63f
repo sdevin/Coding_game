@@ -1,0 +1,12 @@
+package Config;
+
+import java.io.IOException;
+
+public class FichConf3 extends FichConf{
+
+	public FichConf1() throws IOException{
+			
+			super();
+			nomFicConf = "confS3.txt";
+	}
+}

@@ -1,0 +1,15 @@
+package Objects;
+
+import java.io.IOException;
+
+public class Light{
+	
+	private String color;
+
+	public Light(String color, int x, int y, int width ) {
+		this.color = color;
+		
+		
+	}
+	
+}

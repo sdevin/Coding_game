@@ -1,0 +1,99 @@
+package scene;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class Object {
+
+	protected ImageView view;
+	
+	protected String imageName; //fichier de l'image de l'objet
+	//position et taille de l'objet
+	protected int xInit; 
+	protected int yInit;
+	protected int width;
+	
+	protected boolean isObstacle;
+	
+	public Object(String imageName, int x, int y, int width, boolean isObstacle) throws IOException {
+		this.imageName = imageName;
+		this.xInit = x;
+		this.yInit = y;
+		this.width = width;
+		this.isObstacle = isObstacle;
+		
+		//affichage de l'objet
+		BufferedImage bufImg = ImageIO.read(getClass().getResource(imageName));
+		Image image = SwingFXUtils.toFXImage(bufImg, null);
+		view = new ImageView(image);
+		view.setFitWidth(this.width);
+		view.setPreserveRatio(true);
+		view.relocate(this.xInit, this.yInit);
+	}
+	
+	public void changeImg(String newImage) throws IOException {
+		imageName = newImage;
+		BufferedImage bufImg = ImageIO.read(getClass().getResource(newImage));
+		Image image = SwingFXUtils.toFXImage(bufImg, null);
+		view.setImage(image);
+		
+	}
+
+	public ImageView getView() {
+		return view;
+	}
+
+	public void setView(ImageView view) {
+		this.view = view;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
+	public int getxInit() {
+		return xInit;
+	}
+
+	public void setxInit(int xInit) {
+		this.xInit = xInit;
+	}
+
+	public int getyInit() {
+		return yInit;
+	}
+
+	public void setyInit(int yInit) {
+		this.yInit = yInit;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public boolean isObstacle() {
+		return isObstacle;
+	}
+
+	public void setObstacle(boolean isObstacle) {
+		this.isObstacle = isObstacle;
+	}
+	
+	
+
+}

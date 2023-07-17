@@ -1,0 +1,72 @@
+package Config;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FichConf3 extends FichConf{
+	
+	private boolean bonus; //si true, liste de perso depuis fichier, si false 2 persos uniquement
+	private String nomPerso1;
+	private String nomPerso2;
+	
+	private static boolean defaultBonus = false;
+	private static String defaultNomPerso1 = "toto";
+	private static String defaultNomPerso2 = "tata";
+
+	public FichConf3() throws IOException{
+			
+			super();
+			nomFicConf = "confS3.txt";
+			
+			boolean conti = true;
+			
+			//test si le fichier de conf existe
+			File f = new File(nomFicConf);
+			if(f.exists())
+			{ 
+				  //si oui, le lit
+			      FileReader fr = new FileReader(f);  
+			      // Créer l'objet BufferedReader        
+			      BufferedReader br = new BufferedReader(fr);  
+			      String line;
+			      //lecture du flag bonus
+			      line = br.readLine();
+			      if(line != null) {
+			    	  bonus = Boolean.parseBoolean(line);
+			      }else {
+			    	  System.err.println("Fichier de configuration : bonus non definit (true or false) !");
+			    	  conti = false;
+			    	  bonus = defaultBonus;
+			    	  nomPerso1 = defaultNomPerso1;
+			    	  nomPerso2 = defaultNomPerso2;
+			      }
+			    //lecture nom du perso 1
+			      line = br.readLine();
+			      if(conti && line != null) {
+			    	  nomPerso1 = line;
+			      }else {
+			    	  System.err.println("Fichier de configuration : pas de nom de personnage 1 !");
+			    	  conti = false;
+			    	  nomPerso1 = defaultNomPerso1;
+			    	  nomPerso2 = defaultNomPerso2;
+			      }
+			    //lecture nom du perso 2
+			      line = br.readLine();
+			      if(conti && line != null) {
+			    	  nomPerso2 = line;
+			      }else {
+			    	  System.err.println("Fichier de configuration : pas de nom de personnage 1 !");
+			    	  conti = false;
+			    	  nomPerso2 = defaultNomPerso2;
+			      }
+			      fr.close();    
+			}else {
+				//si non prend les paramètre par défaut
+				bonus = defaultBonus;
+				nomPerso1 = defaultNomPerso1;
+				nomPerso2 = defaultNomPerso2;
+			}
+	}
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="NewWizardAction">
+		<item key="NewWizardSelectionPage.STORE_SELECTED_ID" value="org.eclipse.papyrus.uml.diagram.wizards.createproject"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+			<item value="org.eclipse.jdt.ui.java"/>
+			<item value="org.eclipse.papyrus.wizards.category"/>
+		</list>
+	</section>
+	<section name="SmartImportWizard">
+		<item key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
+		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
+		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/home/sandra/eclipse-workspace/Coding_game_S1"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/BE_info_Carlier_Fournier_version_commentee_javadoc"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/DUMAIS"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/DIDES"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/ASSIE"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/HEURTIER"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/Trinome"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/Gallet_Farret"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/BE_InfoFinal"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/src"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/JAYPAL-EDOM"/>
+			<item value="/media/datas/Documents/ENAC/BE_INFO/CASTELL-PASQUANI"/>
+		</list>
+	</section>
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/home/sandra/eclipse-workspace/Coding_game_S2"/>
+			<item value="/home/sandra/eclipse-workspace/Coding_game_S1"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
+</section>

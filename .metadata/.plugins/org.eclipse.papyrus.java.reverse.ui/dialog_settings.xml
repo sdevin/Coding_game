@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="/Coding_game_uml/Coding_game_uml.uml:defaultpackagename" value="test"/>
+	<item key="/Coding_game_uml/Coding_game_uml.uml:DISPLAY_MODEL" value="true"/>
+	<item key="/Coding_game_uml/Coding_game_uml.uml:DISPLAY_PACKAGES" value="true"/>
+	<item key="/Coding_game_uml/Coding_game_uml.uml:DISPLAY_CU" value="true"/>
+	<list key="/Coding_game_uml/Coding_game_uml.uml:searchpaths">
+		<item value="java"/>
+		<item value="*"/>
+		<item value="osgi.*"/>
+		<item value="datatype"/>
+	</list>
+	<list key="/Coding_game_uml/Coding_game_uml.uml:creationpaths">
+		<item value="java.* ;  ; java"/>
+		<item value="org.eclipse.papyrus.* ;  ; *"/>
+		<item value="org.eclipse.* ; org.eclipse.papyrus.* ; *"/>
+		<item value="org.osgi.* ;  ; osgi.*"/>
+		<item value="datatype.* ;  ; datatype"/>
+	</list>
+</section>

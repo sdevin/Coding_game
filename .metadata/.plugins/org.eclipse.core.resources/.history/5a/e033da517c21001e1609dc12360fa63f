@@ -1,0 +1,131 @@
+package jeu;
+
+import java.io.IOException;
+import java.util.TimerTask;
+import java.util.Timer;
+
+import Objects.Personnage;
+import Objects.StaticObject;
+import javafx.scene.paint.Color;
+import Objects.Light;
+import main.Main;
+
+public class Jeu3 extends Jeu{
+
+	private StaticObject portique;
+	private Light portiqueLight;
+	
+	private boolean checkInProgress = false;
+	private static long timeCheck = 5000; // en milliseconde
+	
+	private static int posFile1X = 100;
+	private static int posFile1Y = 300;
+	private static int posFile2X = 100;
+	private static int posFile2Y = 600;
+	private static int posPortiqueX = 600;
+	private static int posPortiqueY = 400;
+	private static int posOutX = Main.sceneX + 100;
+	private static int posOutY = 400;
+	
+	public Jeu3(int caseMaxX, int caseMaxY) throws IOException {	
+		super(caseMaxX, caseMaxY);
+		textDefaite = "Tous les personnages ne sont pas passés";
+		
+		//ajout des personnages
+		if(!Main.conf.getBonus()) { 
+			//ajout des perso dans les objets
+			Personnage perso1 = new Personnage(Main.conf.getNomPerso1(), "/PersoHaut/PersoHaut3_1.png", "/PersoHaut/PersoHaut3_", posFile1X, posFile1Y, 100, 90, true);
+			Main.view.addToListObjects(perso1);
+			persos.add(perso1);
+			Personnage perso2 = new Personnage(Main.conf.getNomPerso2(), "/PersoHaut/PersoHaut2_1.png", "/PersoHaut/PersoHaut2_", posFile2X, posFile2Y, 100, 90, true);
+			Main.view.addToListObjects(perso2);
+			persos.add(perso2);
+		}else {
+			//TODO
+		}
+		
+		//ajout du portique
+		portique = new StaticObject("/arrivee.png", posPortiqueX, posPortiqueY, 100, 0, false);
+		Main.view.addToListObjects(portique);
+		//ajout de la lumière du portique
+		portiqueLight = new Light(Color.GREEN, (posPortiqueX + 50), (posPortiqueY - 50), 50);
+		
+		
+	}
+	
+
+	public void movePersoToCheck(String persoName) {
+		
+		//déplacer le perso au portique
+		Main.view.movePersoTo(persoName, posPortiqueX, posPortiqueY);
+		//attente de l'arrivée au portique (basé sur le temps de déplacement
+
+		TimerTask taskAfterMove = new TimerTask() {
+	        public void run() {
+	        	checkSecu(persoName);
+	        }
+	    };
+	    
+	   Timer timer = new Timer("Timer move");
+	   timer.schedule(taskAfterMove, (long)Main.view.getTimeMove());
+		
+	}
+	
+
+	public void movePersoOut(String persoName) {
+		//check conflit : check non terminé
+		
+		
+		//déplacer le perso a la sortie
+		Main.view.movePersoTo(persoName, posOutX, posOutY);
+		
+	}
+	
+	public void checkSecu(String persoName) {
+		//check conflit : personne déjà au portique
+		checkConflictGoPortique();
+		if(!conflit) {
+			//lumière passe à orange
+			Main.view.changeLightColor(portiqueLight, Color.ORANGE);
+			checkInProgress = true;
+			//attente, check fini : lumière à vert
+			TimerTask taskCheckSecu = new TimerTask() {
+		        public void run() {
+		        	Main.view.changeLightColor(portiqueLight, Color.GREEN);
+		        	checkInProgress = false;
+		        }
+		    };
+		    
+		    Timer timer = new Timer("Timer check");
+		    timer.schedule(taskCheckSecu, timeCheck);
+		}else {
+			//alerte
+			Main.view.changeLightColor(portiqueLight, Color.RED);
+		}
+	    
+	}
+	
+    public void checkConflictGoPortique() {
+    	for(Personnage p : persos) {
+			if(p.getX() == posPortiqueX && p.getY() == posPortiqueY) {
+				//quelqu'un déjà dans le portique
+				conflit = true;
+				textConflit = "Deux personnes dans le portique !";
+			}
+		}
+    }
+    
+    public void checkConflictOutPortique(String persoName) {
+    	Personnage p = getPersoByName(persoName);
+    	//le perso doit être dans le portique
+    	
+    	for(Personnage p : persos) {
+			if(p.getX() == posPortiqueX && p.getY() == posPortiqueY) {
+				//quelqu'un déjà dans le portique
+				conflit = true;
+				textConflit = "Deux personnes dans le portique !";
+			}
+		}
+    }
+
+}

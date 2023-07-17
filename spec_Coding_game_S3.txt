@@ -1,0 +1,33 @@
+But du scénario :
+	faire passer tous les personnages au contrôle (2 pour le niveau de base)
+	
+Contraintes
+	un seul personnage dans le portique à la fois
+	attente de la fin du contrôle pour sortir du portique
+	
+Données initiales :
+	Nom persos par défaut : toto et tata
+	
+Nom du fichier de communication pour les commande : 
+	/tmp/cmd
+	
+Commandes possibles :
+	persoName goCheck (pour aller au portique de contrôle)
+	persoName outCheck (pour partir du portique de contrôle)
+	end
+a mettre a la fin du code
+
+Nom du fichier de communication pour la fin du contrôle :
+	/tmp/checks
+Chaque fois qu'un personnage finit son contrôle une nouvelle ligne y est ecrite avec le nom du personnage.
+
+Fichier de configuration :
+	bonus (true ou false) : active ou non le niveau bonus (voir en dessou)
+	persoName1 (String) : pour changer le nom du personnage 1
+	persoName2 (String) : pour changer le nom du personnage 2
+	
+Si bonus = true (niveau bonus)
+	Il y aura plus d'un personnage dans chaque file
+	La liste des personnages sera tirée des fichiers listeFile1.txt et listeFile2.txt
+
+

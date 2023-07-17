@@ -1,0 +1,43 @@
+But du scénario :
+	amener les personnage au point d'arrivé (comptoir d'enregistrement)
+	
+Données initiales :
+	Nom perso 1 par défaut : toto
+	Position perso 1 x par défaut : 3
+	Position perso 1 y par défaut : 4
+	Nom perso 2 par défaut : tata
+	Position perso 2 x par défaut : 5
+	Position perso 2 y par défaut : 6
+	Position arrivée x : 8
+	Position arrivée y : 7
+	
+Nom du fichier de communication pour les commande : 
+	/tmp/cmd
+	
+Commandes possibles :
+	persoName direction
+avec direction = r (droite), l (gauche), u (haut) ou d (bas) 
+exemples de commande :
+toto d
+tata u
+	end
+a mettre a la fin du code
+
+Fichier de configuration :
+	persoName (String) : pour changer le nom du personnage
+	persoName2 (String) : pour changer le nom du deuxième personnage
+	randPos (true ou false) : si a true la position initiale des personnages sera aléatoire
+	posPersoX (int) : position x (numéro de case) initiale du personnage 1 (non lu si randPos=true)
+	posPersoY (int) : position y (numéro de case) initiale du personnage 1 (non lu si randPos=true)
+	posPerso2X (int) : position x (numéro de case) initiale du personnage 2 (non lu si randPos=true)
+	posPerso2Y (int) : position y (numéro de case) initiale du personnage 2 (non lu si randPos=true)
+	
+Si randPos = true (niveau bonus)
+	Les personnages auront une position de départ aléatoire (dans les limites du quadrillage)
+	Ces positions seront envoyées dans le fichier /tmp/posPerso sous le format :
+nomPerso posX posY
+ex : 
+toto 3 4
+tata 5 6
+
+

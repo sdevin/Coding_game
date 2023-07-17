@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;BE_info_Carlier_Fournier_version_commentee_javadoc&apos;" deleteContents="false" description="Delete resource &apos;BE_info_Carlier_Fournier_version_commentee_javadoc&apos;" element1="/BE_info_Carlier_Fournier_version_commentee_javadoc" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1685629631161"/>
+</session>

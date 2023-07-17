@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javafx.scene.input.KeyEvent"/>
+    <fullyQualifiedTypeName name="java.io.RandomAccessFile"/>
+    <fullyQualifiedTypeName name="java.io.FileReader"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="java.io.BufferedReader"/>
+    <fullyQualifiedTypeName name="jeu.Elements"/>
+    <fullyQualifiedTypeName name="javafx.animation.Timeline"/>
+    <fullyQualifiedTypeName name="java.util.Collection"/>
+    <fullyQualifiedTypeName name="javafx.animation.KeyFrame"/>
+    <fullyQualifiedTypeName name="javafx.util.Duration"/>
+    <fullyQualifiedTypeName name="javafx.animation.KeyValue"/>
+    <fullyQualifiedTypeName name="javafx.event.EventHandler"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="javafx.scene.paint.Color"/>
+    <fullyQualifiedTypeName name="main.Main"/>
+</qualifiedTypeNameHistroy>

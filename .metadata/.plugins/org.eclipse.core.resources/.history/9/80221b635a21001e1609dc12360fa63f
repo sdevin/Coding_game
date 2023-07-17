@@ -1,0 +1,27 @@
+package Objects;
+
+
+public class Light{
+	
+	private String color;
+	protected int xInit; 
+	protected int yInit;
+	protected int width;
+
+	public Light(String color, int x, int y, int width ) {
+		this.color = color;
+		this.xInit = x;
+		this.yInit = y;
+		this.width = width;
+		
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+}
