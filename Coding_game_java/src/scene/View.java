@@ -97,8 +97,8 @@ public class View extends Pane{
 		//determination de l'angle de direction
 		double deltaX = x-xInit;
 		double deltaY = y-yInit;
-		double angleRad = Math.atan2(deltaY,deltaX);
-		double angleDeg = Math.toDegrees((angleRad+90));
+		double angleRad = Math.atan2(deltaX,-deltaY);
+		double angleDeg = Math.toDegrees(angleRad);
 		p.turnObject((int)angleDeg);
 		
 		//determination de la distance à parcourir

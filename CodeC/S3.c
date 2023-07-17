@@ -63,8 +63,10 @@ int main(){
 	pthread_join(idThread2, NULL);
 	
 	char instruction[20];
+	instruction[0] = '\0';
 	strcat(instruction, "end\n");
 	write(fd, instruction, strlen(instruction));
+	printf("envoie end \n");
 	
 	close(fd);
 	close(fdCheck);

@@ -1,5 +1,8 @@
 package jeu;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.TimerTask;
 import java.util.ArrayList;
@@ -15,8 +18,11 @@ public class Jeu3 extends Jeu{
 
 	private StaticObject portique;
 	private Light portiqueLight;
-	private ArrayList<Personnage> file1;
-	private ArrayList<Personnage> file2;
+	private ArrayList<String> file1;
+	private ArrayList<String> file2;
+	
+	private static String nomFicFile1 = "listeFile1.txt";
+	private static String nomFicFile2 = "listeFile2.txt";
 	
 	private boolean checkInProgress = false;
 	private static long timeCheck = 2000; // en milliseconde
@@ -44,10 +50,62 @@ public class Jeu3 extends Jeu{
 			Main.view.addToListObjects(perso2);
 			persos.add(perso2);
 		}else {
-			//affichage des deux premiers
-			
-			//lecture des persos depuis fichier et mise dans les files
-			
+			file1 = new ArrayList<String>();
+			file2 = new ArrayList<String>();
+			//lecture de la premiere file
+			File f1 = new File(nomFicFile1);
+			if(f1.exists())//test si le fichier de conf existe
+			{ 
+			      FileReader fr = new FileReader(f1);  
+			      BufferedReader br = new BufferedReader(fr);  
+			      String line;
+			      //affichage du premier perso
+			      line = br.readLine();
+			      if(line != null) {
+			    	  Personnage perso1 = new Personnage(line, "/PersoHaut/PersoHaut3_1.png", "/PersoHaut/PersoHaut3_", posFile1X, posFile1Y, 100, 90, true);
+					  Main.view.addToListObjects(perso1);
+					  persos.add(perso1);
+					  file1.add(line);
+			      }else {
+			    	  System.err.println("Fichier " + nomFicFile1 + " vide !");
+			      }
+			      //lecture des persos depuis fichier et mise dans les files
+			      line = br.readLine();
+			      while(line != null) {
+					  file1.add(line);
+				      line = br.readLine();
+			      }
+			      fr.close();
+			}else {
+				System.err.println("Fichier " + nomFicFile1 + " introuvable !");
+			}
+			//lecture de la premiere file
+			File f2 = new File(nomFicFile2);
+			if(f2.exists())//test si le fichier de conf existe
+			{ 
+			      FileReader fr = new FileReader(f2);  
+			      BufferedReader br = new BufferedReader(fr);  
+			      String line;
+			      //affichage du premier perso
+			      line = br.readLine();
+			      if(line != null) {
+			    	  Personnage perso2 = new Personnage(line, "/PersoHaut/PersoHaut2_1.png", "/PersoHaut/PersoHaut2_", posFile2X, posFile2Y, 100, 90, true);
+					  Main.view.addToListObjects(perso2);
+					  persos.add(perso2);
+					  file2.add(line);
+			      }else {
+			    	  System.err.println("Fichier " + nomFicFile2 + " vide !");
+			      }
+			      //lecture des persos depuis fichier et mise dans les files
+			      line = br.readLine();
+			      while(line != null) {
+					  file2.add(line);
+				      line = br.readLine();
+			      }
+			      fr.close();
+			}else {
+				System.err.println("Fichier " + nomFicFile2 + " introuvable !");
+			}   	  
 			
 		}
 		
@@ -65,8 +123,45 @@ public class Jeu3 extends Jeu{
 		
 		//déplacer le perso au portique
 		Main.view.movePersoTo(persoName, posPortiqueX, posPortiqueY);
+		
+		//si bonus : ajout du prochain dans la liste
+		if(Main.conf.getBonus()) {
+			//recuperation du numéro de file du personnage
+			if(file1.size() > 0 && persoName.equals(file1.get(0))){//perso dans la premiere file
+				file1.remove(0);
+				//apparition du suivant
+				if(file1.size() > 0) {
+					try {
+						Personnage perso = new Personnage(file1.get(0), "/PersoHaut/PersoHaut3_1.png", "/PersoHaut/PersoHaut3_", posFile1X, posFile1Y, 100, 90, true);
+						Main.view.addToListObjects(perso);
+						Main.view.getChildren().add(perso.getView());
+						persos.add(perso);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}else if(file2.size() > 0 &&  persoName.equals(file2.get(0))){//perso dans la premiere file
+				file2.remove(0);
+				//apparition du suivant
+				if(file2.size() > 0) {
+					try {
+						Personnage perso = new Personnage(file2.get(0), "/PersoHaut/PersoHaut2_1.png", "/PersoHaut/PersoHaut2_", posFile2X, posFile2Y, 100, 90, true);
+						Main.view.addToListObjects(perso);
+						Main.view.getChildren().add(perso.getView());
+						persos.add(perso);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}else {
+				System.err.println("Personnage non trouvé dans les files !");
+			}
+			
+		}
+		
 		//attente de l'arrivée au portique (basé sur le temps de déplacement
-
 		TimerTask taskAfterMove = new TimerTask() {
 	        public void run() {
 	        	checkSecu(persoName);
@@ -101,6 +196,7 @@ public class Jeu3 extends Jeu{
 			//attente, check fini : lumière à vert
 			TimerTask taskCheckSecu = new TimerTask() {
 		        public void run() {
+		        	checkInProgress = false;
 		        	if(!conflit) {
 		        		Main.view.changeLightColor(portiqueLight, Color.GREEN);
 			        	//envoie signal de fin de check
@@ -112,7 +208,6 @@ public class Jeu3 extends Jeu{
 							e.printStackTrace();
 						}
 		        	}
-		        	checkInProgress = false;
 		        }
 		    };
 		    
@@ -156,5 +251,6 @@ public class Jeu3 extends Jeu{
 		}
 		return res;
 	}
+    
 
 }
