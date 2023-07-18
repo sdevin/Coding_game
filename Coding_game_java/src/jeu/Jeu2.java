@@ -40,10 +40,10 @@ public class Jeu2 extends Jeu{
 		}
 		
 		//ajout du perso dans les objets
-		Personnage perso = new Personnage(Main.conf.getNomPerso(), "/PersoHaut/PersoHaut3_1.png", "/PersoHaut/PersoHaut3_", Main.convertCasetoPosX(posPersoX), Main.convertCasetoPosY(posPersoY), Main.tailleQuadrillage, 90, true);
+		Personnage perso = new Personnage(Main.conf.getNomPerso(), Main.convertCasetoPosX(posPersoX), Main.convertCasetoPosY(posPersoY), Main.tailleQuadrillage, 90, true);
 		Main.view.addToListObjects(perso);
 		persos.add(perso);
-		Personnage perso2 = new Personnage(Main.conf.getNomPerso2(), "/PersoHaut/PersoHaut2_1.png", "/PersoHaut/PersoHaut2_", Main.convertCasetoPosX(posPerso2X), Main.convertCasetoPosY(posPerso2Y), Main.tailleQuadrillage, 90, true);
+		Personnage perso2 = new Personnage(Main.conf.getNomPerso2(), Main.convertCasetoPosX(posPerso2X), Main.convertCasetoPosY(posPerso2Y), Main.tailleQuadrillage, 90, true);
 		Main.view.addToListObjects(perso2);
 		persos.add(perso2);
 	}

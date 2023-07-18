@@ -43,10 +43,10 @@ public class Jeu3 extends Jeu{
 		//ajout des personnages
 		if(!Main.conf.getBonus()) { 
 			//ajout des perso dans les objets
-			Personnage perso1 = new Personnage(Main.conf.getNomPerso1(), "/PersoHaut/PersoHaut3_1.png", "/PersoHaut/PersoHaut3_", posFile1X, posFile1Y, 100, 90, true);
+			Personnage perso1 = new Personnage(Main.conf.getNomPerso1(), posFile1X, posFile1Y, 100, 90, true);
 			Main.view.addToListObjects(perso1);
 			persos.add(perso1);
-			Personnage perso2 = new Personnage(Main.conf.getNomPerso2(), "/PersoHaut/PersoHaut2_1.png", "/PersoHaut/PersoHaut2_", posFile2X, posFile2Y, 100, 90, true);
+			Personnage perso2 = new Personnage(Main.conf.getNomPerso2(), posFile2X, posFile2Y, 100, 90, true);
 			Main.view.addToListObjects(perso2);
 			persos.add(perso2);
 		}else {
@@ -62,7 +62,7 @@ public class Jeu3 extends Jeu{
 			      //affichage du premier perso
 			      line = br.readLine();
 			      if(line != null) {
-			    	  Personnage perso1 = new Personnage(line, "/PersoHaut/PersoHaut3_1.png", "/PersoHaut/PersoHaut3_", posFile1X, posFile1Y, 100, 90, true);
+			    	  Personnage perso1 = new Personnage(line, posFile1X, posFile1Y, 100, 90, true);
 					  Main.view.addToListObjects(perso1);
 					  persos.add(perso1);
 					  file1.add(line);
@@ -89,7 +89,7 @@ public class Jeu3 extends Jeu{
 			      //affichage du premier perso
 			      line = br.readLine();
 			      if(line != null) {
-			    	  Personnage perso2 = new Personnage(line, "/PersoHaut/PersoHaut2_1.png", "/PersoHaut/PersoHaut2_", posFile2X, posFile2Y, 100, 90, true);
+			    	  Personnage perso2 = new Personnage(line, posFile2X, posFile2Y, 100, 90, true);
 					  Main.view.addToListObjects(perso2);
 					  persos.add(perso2);
 					  file2.add(line);
@@ -132,7 +132,7 @@ public class Jeu3 extends Jeu{
 				//apparition du suivant
 				if(file1.size() > 0) {
 					try {
-						Personnage perso = new Personnage(file1.get(0), "/PersoHaut/PersoHaut3_1.png", "/PersoHaut/PersoHaut3_", posFile1X, posFile1Y, 100, 90, true);
+						Personnage perso = new Personnage(file1.get(0), posFile1X, posFile1Y, 100, 90, true);
 						Main.view.addToListObjects(perso);
 						Main.view.getChildren().add(perso.getView());
 						persos.add(perso);
@@ -146,7 +146,7 @@ public class Jeu3 extends Jeu{
 				//apparition du suivant
 				if(file2.size() > 0) {
 					try {
-						Personnage perso = new Personnage(file2.get(0), "/PersoHaut/PersoHaut2_1.png", "/PersoHaut/PersoHaut2_", posFile2X, posFile2Y, 100, 90, true);
+						Personnage perso = new Personnage(file2.get(0), posFile2X, posFile2Y, 100, 90, true);
 						Main.view.addToListObjects(perso);
 						Main.view.getChildren().add(perso.getView());
 						persos.add(perso);
