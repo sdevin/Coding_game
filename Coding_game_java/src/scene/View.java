@@ -34,8 +34,8 @@ public class View extends Pane{
 	private Canvas canvas;
 	
 	private ArrayList<Object> listObjects;
+	private ArrayList<Light> listLights;
 	private Quadrillage quad;
-	private Background bg;
 	
 	private final Timeline tm;
 	Collection<KeyFrame> frames;
@@ -50,10 +50,10 @@ public class View extends Pane{
 		this.tm = new Timeline();
 		frames = tm.getKeyFrames();
 		listObjects = new ArrayList<Object>();
+		listLights = new ArrayList<Light>();
 		canvas=new Canvas(Main.sceneX,Main.sceneY);
 		gc = canvas.getGraphicsContext2D();
 		quad = new Quadrillage(Main.tailleQuadrillage, Main.xminQuad, Main.yminQuad, Main.xmaxQuad, Main.ymaxQuad);
-		bg = new Background();
 		
 	}
 
@@ -61,7 +61,7 @@ public class View extends Pane{
 		
 		
 		//ajout du fond
-		for(Object o : bg.getListObjects()) {
+		for(Object o : Main.bg.getListObjects()) {
 			this.getChildren().add(o.getView());
 		}
 		
@@ -79,6 +79,10 @@ public class View extends Pane{
 		//ajout des objets à la scène
 		for(Object o : listObjects) {
 			this.getChildren().add(o.getView());
+		}
+		//ajout des lumieres à la scène
+		for(Light l : listLights) {
+			this.getChildren().add(l.getCircle());
 		}
 
 	}
@@ -209,8 +213,12 @@ public class View extends Pane{
 	public void addToListObjects(Object object) {
 		listObjects.add(object);
 	}
+	
+	public void addToListLights(Light light) {
+		listLights.add(light);
+	}
 
-	//ajoute un objet dans la scene
+	//configure l'image view d'un object
 	public void displayObject(Object object) {
 
 		BufferedImage bufImg;
@@ -227,18 +235,6 @@ public class View extends Pane{
 			//Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	//ajoute une lumière dans la scene
-	public void displayLight(Light light) {
-
-		//Création du cercle
-		light.getCircle().setCenterX(light.getX());
-		light.getCircle().setCenterY(light.getY());
-		light.getCircle().setRadius(light.getWidth()/2);
-		light.getCircle().setFill(light.getColor());
-		//affichage
-        this.getChildren().add(light.getCircle());
 	}
 	
 	//change la couleur d'une lumière
@@ -260,7 +256,7 @@ public class View extends Pane{
 	public void displayVictoire() {
 		
 		Text text = new Text("C'est gagné !");
-		text.setFont(new Font("Arial", 100));
+		text.setFont(new Font("Arial", Main.tailleQuadrillage));
 		text.setFill(Color.BLACK);
 		text.setX(Main.sceneX/5);
 		text.setY(Main.sceneY/2);
@@ -273,20 +269,20 @@ public class View extends Pane{
 
 		//affichage perdu
 		Text text = new Text("Perdu...");
-		text.setFont(new Font("Arial", 100));
+		text.setFont(new Font("Arial", Main.tailleQuadrillage));
 		text.setTextAlignment(TextAlignment.CENTER);
 		text.setFill(Color.BLACK);
 		text.setX(Main.sceneX/3);
-		text.setY(Main.sceneY/2-100);
+		text.setY(Main.sceneY/2-Main.tailleQuadrillage);
 		this.getChildren().add(text);
 		System.out.println("Perdu...");
 		//affichage raison defaite
 		Text text2 = new Text(texteDefaite);
-		text2.setFont(new Font("Arial", 50));
+		text2.setFont(new Font("Arial", Main.tailleQuadrillage/2));
 		text2.setTextAlignment(TextAlignment.CENTER);
 		text2.setFill(Color.BLACK);
-		text2.setX(Main.sceneX/5);
-		text2.setY(Main.sceneY/2 + 100);
+		text2.setX(Main.sceneX/4);
+		text2.setY(Main.sceneY/2 + Main.tailleQuadrillage);
 		this.getChildren().add(text2);
 	}
 

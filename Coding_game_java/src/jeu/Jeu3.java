@@ -27,17 +27,22 @@ public class Jeu3 extends Jeu{
 	private boolean checkInProgress = false; //true quand un contrôle est en cours dans le portique
 	private static long timeCheck = 2000; // temps de contrôle au portique (en milliseconde)
 	
-	 //position des persos dans les files d'attente 
-	private static int posFile1X = 100; 
-	private static int posFile1Y = 300;
-	private static int posFile2X = 100;
-	private static int posFile2Y = 600;
+	//position des persos dans les files d'attente (hors ecran)
+	private static int posAtt1X = -Main.tailleQuadrillage; 
+	private static int posAtt1Y = 3*Main.tailleQuadrillage;
+	private static int posAtt2X = -Main.tailleQuadrillage;
+	private static int posAtt2Y = 6*Main.tailleQuadrillage;
+	//position des persos premier de file d'attente
+	private static int posFile1X = Main.tailleQuadrillage; 
+	private static int posFile1Y = 3*Main.tailleQuadrillage;
+	private static int posFile2X = Main.tailleQuadrillage;
+	private static int posFile2Y = 6*Main.tailleQuadrillage;
 	//position du portique
-	private static int posPortiqueX = 600;
-	private static int posPortiqueY = 400;
-	//position de la sortie (après portique)
-	private static int posOutX = Main.sceneX + 100;
-	private static int posOutY = 400;
+	private static int posPortiqueX = 6*Main.tailleQuadrillage;
+	private static int posPortiqueY = 4*Main.tailleQuadrillage;
+	//position de la sortie (après portique, hors ecran)
+	private static int posOutX = Main.sceneX + Main.tailleQuadrillage;
+	private static int posOutY = 5*Main.tailleQuadrillage;
 	
 	public Jeu3(int caseMaxX, int caseMaxY) throws IOException {	
 		super(caseMaxX, caseMaxY);
@@ -46,10 +51,10 @@ public class Jeu3 extends Jeu{
 		//ajout des personnages
 		if(!Main.conf.getBonus()) { 
 			//pas de bonus, uniquement un personnage dans chaque file
-			Personnage perso1 = new Personnage(Main.conf.getNomPerso1(), posFile1X, posFile1Y, 100, 90, true);
+			Personnage perso1 = new Personnage(Main.conf.getNomPerso1(), posFile1X, posFile1Y, Main.tailleQuadrillage, 90, true);
 			Main.view.addToListObjects(perso1);
 			persos.add(perso1);
-			Personnage perso2 = new Personnage(Main.conf.getNomPerso2(), posFile2X, posFile2Y, 100, 90, true);
+			Personnage perso2 = new Personnage(Main.conf.getNomPerso2(), posFile2X, posFile2Y, Main.tailleQuadrillage, 90, true);
 			Main.view.addToListObjects(perso2);
 			persos.add(perso2);
 		}else {
@@ -66,7 +71,7 @@ public class Jeu3 extends Jeu{
 			      //affichage du premier perso
 			      line = br.readLine();
 			      if(line != null) {
-			    	  Personnage perso1 = new Personnage(line, posFile1X, posFile1Y, 100, 90, true);
+			    	  Personnage perso1 = new Personnage(line, posFile1X, posFile1Y, Main.tailleQuadrillage, 90, true);
 					  Main.view.addToListObjects(perso1);
 					  persos.add(perso1);
 					  file1.add(line);
@@ -76,6 +81,9 @@ public class Jeu3 extends Jeu{
 			      //lecture des persos depuis fichier et mise dans les files
 			      line = br.readLine();
 			      while(line != null) {
+			    	  Personnage perso = new Personnage(line, posAtt1X, posAtt1Y, Main.tailleQuadrillage, 90, true);
+					  Main.view.addToListObjects(perso);
+					  persos.add(perso);
 					  file1.add(line);
 				      line = br.readLine();
 			      }
@@ -93,7 +101,7 @@ public class Jeu3 extends Jeu{
 			      //affichage du premier perso
 			      line = br.readLine();
 			      if(line != null) {
-			    	  Personnage perso2 = new Personnage(line, posFile2X, posFile2Y, 100, 90, true);
+			    	  Personnage perso2 = new Personnage(line, posFile2X, posFile2Y, Main.tailleQuadrillage, 90, true);
 					  Main.view.addToListObjects(perso2);
 					  persos.add(perso2);
 					  file2.add(line);
@@ -103,6 +111,9 @@ public class Jeu3 extends Jeu{
 			      //lecture des persos depuis fichier et mise dans les files
 			      line = br.readLine();
 			      while(line != null) {
+			    	  Personnage perso = new Personnage(line, posAtt2X, posAtt2Y, Main.tailleQuadrillage, 90, true);
+					  Main.view.addToListObjects(perso);
+					  persos.add(perso);
 					  file2.add(line);
 				      line = br.readLine();
 			      }
@@ -114,60 +125,44 @@ public class Jeu3 extends Jeu{
 		}
 		
 		//ajout du portique
-		portique = new StaticObject("/arrivee.png", posPortiqueX, posPortiqueY, 100, 0, false);
+		portique = new StaticObject("/portique.png", posPortiqueX, posPortiqueY-Main.tailleQuadrillage/2, Main.tailleQuadrillage, 0, false);
 		Main.view.addToListObjects(portique);
 		//ajout de la lumière du portique
-		portiqueLight = new Light(Color.GREEN, (posPortiqueX + 50), (posPortiqueY - 50), 50);
+		portiqueLight = new Light(Color.GREEN, (posPortiqueX + Main.tailleQuadrillage/2), (posPortiqueY + Main.tailleQuadrillage/2), Main.tailleQuadrillage/2);
 		
 		
 	}
 	
-	//déplace un personnage au portique et commence le contr
+	//déplace un personnage au portique et commence le controle
 	public void movePersoToCheck(String persoName) {
 		
 		//déplacer le perso au portique
 		Main.view.movePersoTo(persoName, posPortiqueX, posPortiqueY);
 		
-		//si bonus : ajout du prochain dans la liste
-		if(Main.conf.getBonus()) {
-			//recuperation du numéro de file du personnage
-			if(file1.size() > 0 && persoName.equals(file1.get(0))){//perso dans la premiere file
-				file1.remove(0);
-				//apparition du suivant
-				if(file1.size() > 0) {
-					try {
-						Personnage perso = new Personnage(file1.get(0), posFile1X, posFile1Y, 100, 90, true);
-						Main.view.addToListObjects(perso);
-						Main.view.getChildren().add(perso.getView());
-						persos.add(perso);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}else if(file2.size() > 0 &&  persoName.equals(file2.get(0))){//perso dans la premiere file
-				file2.remove(0);
-				//apparition du suivant
-				if(file2.size() > 0) {
-					try {
-						Personnage perso = new Personnage(file2.get(0), posFile2X, posFile2Y, 100, 90, true);
-						Main.view.addToListObjects(perso);
-						Main.view.getChildren().add(perso.getView());
-						persos.add(perso);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}else {
-				System.err.println("Personnage non trouvé dans les files !");
-			}
-			
-		}
 		
 		//attente de l'arrivée au portique (basé sur le temps de déplacement)
 		TimerTask taskAfterMove = new TimerTask() {
 	        public void run() {
+	        	//si bonus : avance du prochain dans la liste
+	    		if(Main.conf.getBonus()) {
+	    			//recuperation du numéro de file du personnage
+	    			if(file1.size() > 0 && persoName.equals(file1.get(0))){//perso dans la premiere file
+	    				file1.remove(0);
+	    				//apparition du suivant
+	    				if(file1.size() > 0) {
+	    					Main.view.movePersoTo(file1.get(0), posFile1X, posFile1Y);
+	    				}
+	    			}else if(file2.size() > 0 &&  persoName.equals(file2.get(0))){//perso dans la premiere file
+	    				file2.remove(0);
+	    				//apparition du suivant
+	    				if(file2.size() > 0) {
+	    					Main.view.movePersoTo(file2.get(0), posFile2X, posFile2Y);
+	    				}
+	    			}else {
+	    				System.err.println("Personnage non trouvé dans les files !");
+	    			}
+	    			
+	    		}
 	        	checkSecu(persoName);
 	        }
 	    };

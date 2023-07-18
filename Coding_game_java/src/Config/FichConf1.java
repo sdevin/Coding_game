@@ -27,8 +27,8 @@ public class FichConf1 extends FichConf{
 	
 	//paramètres par défaut
 	private static String nomPersoDefault = "toto";
-	private static int posPersoXDefault = 3;
-	private static int posPersoYDefault = 4;
+	private static int posPersoXDefault = 1;
+	private static int posPersoYDefault = 5;
 	private static boolean randPosDefault = false;
 	
 	

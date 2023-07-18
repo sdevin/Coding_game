@@ -15,8 +15,8 @@ public class Jeu1 extends Jeu{
 		super(caseMaxX, caseMaxY);
 		textDefaite = "Arrivée non atteinte";
 
-		//ajout de l'arrivée
-		goal = new StaticObject("/arrivee.png", Main.convertCasetoPosX(8), Main.convertCasetoPosY(7), Main.tailleQuadrillage, 0, false);
+		//ajout de l'arrivée (comptoir 3, case 10-7)
+		goal = new StaticObject("/vide.png", Main.convertCasetoPosX(10), Main.convertCasetoPosY(7), Main.tailleQuadrillage, 0, false);
 		Main.view.addToListObjects(goal);
 		
 		//si position du personnage aléatoire, tirage de cette position

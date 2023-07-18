@@ -3,9 +3,9 @@ But du scénario :
 	
 Données initiales :
 	Nom perso par défaut : toto
-	Position perso x par défaut : 3
-	Position perso y par défaut : 4
-	Position arrivée x : 8
+	Position perso x par défaut : 1
+	Position perso y par défaut : 5
+	Position arrivée x : 10
 	Position arrivée y : 7
 	
 Nom du fichier de communication pour les commande : 

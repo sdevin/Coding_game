@@ -8,7 +8,7 @@ Données initiales :
 	Nom perso 2 par défaut : tata
 	Position perso 2 x par défaut : 5
 	Position perso 2 y par défaut : 6
-	Position arrivée x : 8
+	Position arrivée x : 10
 	Position arrivée y : 7
 	
 Nom du fichier de communication pour les commande : 

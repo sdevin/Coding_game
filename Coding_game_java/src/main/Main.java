@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import scene.Background;
 import scene.View;
 
 public class Main extends Application {
@@ -19,15 +20,16 @@ public class Main extends Application {
 	public static FichConf conf;
 	public static EcritureFicher ficEcr;
 	public static View view;
+	public static Background bg;
 	
 	//format de la fenêtre et du quadrillage
-	public static final int sceneX = 1300;
-	public static final int sceneY = 1000;
-	public static final int tailleQuadrillage = 100;
-	public static final int xminQuad = 100;
+	public static final int tailleQuadrillage = 50;
+	public static final int sceneX = 13*tailleQuadrillage;
+	public static final int sceneY = 10*tailleQuadrillage;
+	public static final int xminQuad = tailleQuadrillage;
 	public static final int yminQuad = 0;
-	public static final int xmaxQuad = 1100;
-	public static final int ymaxQuad = 1000;
+	public static final int xmaxQuad = 11*tailleQuadrillage;
+	public static final int ymaxQuad = 10*tailleQuadrillage;
 	//couleur du background
 	private final int bgR = 185;
 	private final int bgG = 216;
@@ -38,13 +40,14 @@ public class Main extends Application {
 	* 2 : deux persos (multi-thread)
 	* 3 : passage de la securité (mutex)
 	*/
-	public static int Sce = 1;
+	public static int Sce = 3;
 
 	
 	public void start(Stage stage) throws Exception { 
 		stage.setTitle("Coding Game V1"); 
 
-		view = new View(); 
+		view = new View();
+		bg = new Background(); 
 		switch(Sce) {
 		case 1 :
 			conf = new FichConf1();

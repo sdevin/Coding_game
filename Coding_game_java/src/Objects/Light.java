@@ -20,9 +20,14 @@ public class Light{
 		this.x = x;
 		this.y = y;
 		this.width = width;
-		this.circle = new Circle();
 		
-		Main.view.displayLight(this);
+		this.circle = new Circle();
+		this.getCircle().setCenterX(this.getX());
+		this.getCircle().setCenterY(this.getY());
+		this.getCircle().setRadius(this.getWidth()/2);
+		this.getCircle().setFill(this.getColor());
+		
+		Main.view.addToListLights(this);
 	}
 
 	public Color getColor() {
