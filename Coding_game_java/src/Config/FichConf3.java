@@ -7,10 +7,19 @@ import java.io.IOException;
 
 public class FichConf3 extends FichConf{
 	
-	private boolean bonus; //si true, liste de perso depuis fichier, si false 2 persos uniquement
+/*
+ * Fichier de conf sous la forme :
+ * bonue (boolean) : i true, liste des persos prise depuis fichier, si false 2 persos uniquement
+ * nomPerso1 (String) : nom du premier personnage (bonus = false)
+ * nomPerso2 (String) : nom du second personnage (bonus = false)
+ */
+	
+	//parametres récupérés du fichier de conf
+	private boolean bonus;
 	private String nomPerso1;
 	private String nomPerso2;
 	
+	//paramètres par défaut
 	private static boolean defaultBonus = false;
 	private static String defaultNomPerso1 = "toto";
 	private static String defaultNomPerso2 = "tata";

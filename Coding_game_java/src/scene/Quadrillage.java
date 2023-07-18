@@ -5,9 +5,10 @@ import javafx.scene.shape.Line;
 
 public class Quadrillage {
 
-	private int tailleCase;
-	private ArrayList<Line> lignes;
-	private int caseMaxX = -1;
+	private int tailleCase; //taille en pixel d'une case (carré)
+	private ArrayList<Line> lignes; //lignes constituant le quadrillage
+	//nombre de case du quadrillage
+	private int caseMaxX = -1; 
 	private int caseMaxY = -1;
 	
 	public Quadrillage(int tailleCase, int xmin, int ymin, int xmax, int ymax) {

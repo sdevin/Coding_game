@@ -21,6 +21,7 @@ public class FichConf2 extends FichConf{
  * posePerso2Y (int) : position Y initiale du personnage 2
  */
 	
+	//parametres récupérés du fichier de conf
 	private String nomPerso;
 	private int posPersoX;
 	private int posPersoY;
@@ -29,6 +30,7 @@ public class FichConf2 extends FichConf{
 	private int posPerso2X;
 	private int posPerso2Y;
 	
+	//paramètres par defaut
 	private static String nomPersoDefault = "toto";
 	private static int posPersoXDefault = 3;
 	private static int posPersoYDefault = 4;

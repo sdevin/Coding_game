@@ -8,10 +8,11 @@ public class Light{
 
 	private Circle circle;
 	
-	private Color color;
-	protected int x; 
+	private Color color; //couleur de la lumière
+	//position du centre du cercle
+	protected int x;  
 	protected int y;
-	protected int width;
+	protected int width; //diametre du cercle
 
 
 	public Light(Color color, int x, int y, int width) {

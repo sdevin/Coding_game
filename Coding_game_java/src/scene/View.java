@@ -40,8 +40,8 @@ public class View extends Pane{
 	private final Timeline tm;
 	Collection<KeyFrame> frames;
 	
-	private final double timeMove = 1000;
-	private final int nbImgMove = 4;
+	private final double timeMove = 1000; //temps de déplacement d'un personnage (d'un point à un autre)
+	private final int nbImgMove = 4; //nombre d'image constituant un personnage en déplacement
 	
 	
 
@@ -84,6 +84,7 @@ public class View extends Pane{
 	}
 	
 
+	//déplace un personnage à un point x, y
 	public void movePersoTo(String persoName, int x, int y) {
 		frames.clear();
 		Duration currentTime = tm.getCurrentTime();
@@ -132,6 +133,7 @@ public class View extends Pane{
 		
 	}
 	
+	//déplace un personnage d'une case dans le quadrillage
 	public void movePerso(String perso, String direction) {
 		frames.clear();
 		Duration currentTime = tm.getCurrentTime();
@@ -208,6 +210,7 @@ public class View extends Pane{
 		listObjects.add(object);
 	}
 
+	//ajoute un objet dans la scene
 	public void displayObject(Object object) {
 
 		BufferedImage bufImg;
@@ -226,6 +229,7 @@ public class View extends Pane{
 		}
 	}
 	
+	//ajoute une lumière dans la scene
 	public void displayLight(Light light) {
 
 		//Création du cercle
@@ -237,11 +241,12 @@ public class View extends Pane{
         this.getChildren().add(light.getCircle());
 	}
 	
+	//change la couleur d'une lumière
 	public void changeLightColor(Light light, Color color) {
-
 		light.getCircle().setFill(color);
 	}
 	
+	//change l'image associée à un objet
 	public void changeImg(Object object, String newImage) throws IOException {
 		object.setImageName(newImage);
 		BufferedImage bufImg = ImageIO.read(object.getClass().getResource(newImage));
@@ -251,15 +256,9 @@ public class View extends Pane{
 	}
 	
 
+	//affichage du texte en cas de victoire
 	public void displayVictoire() {
-		//personnages victorieux
-		/*
-		ArrayList<Personnage> persos = Main.jeu.getPersos();
-		for(Personnage p : persos) {
-			changeImg(p, "/gagner.png");
-		}*/
 		
-		//texte de victoire
 		Text text = new Text("C'est gagné !");
 		text.setFont(new Font("Arial", 100));
 		text.setFill(Color.BLACK);
@@ -267,10 +266,9 @@ public class View extends Pane{
 		text.setY(Main.sceneY/2);
 		text.setTextAlignment(TextAlignment.CENTER);
 		this.getChildren().add(text);
-		
-		
 	}
 	
+	//affichage du texte en cas de defaite
 	public void displayDefaite(String texteDefaite) {
 
 		//affichage perdu

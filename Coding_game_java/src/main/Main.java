@@ -38,7 +38,7 @@ public class Main extends Application {
 	* 2 : deux persos (multi-thread)
 	* 3 : passage de la securité (mutex)
 	*/
-	public static int Sce = 3;
+	public static int Sce = 1;
 
 	
 	public void start(Stage stage) throws Exception { 

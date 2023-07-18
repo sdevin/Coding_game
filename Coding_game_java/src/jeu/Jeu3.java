@@ -16,23 +16,26 @@ import main.Main;
 
 public class Jeu3 extends Jeu{
 
-	private StaticObject portique;
-	private Light portiqueLight;
-	private ArrayList<String> file1;
-	private ArrayList<String> file2;
+	private StaticObject portique; //portique de sécurité
+	private Light portiqueLight; //lumière associée au portique
+	private ArrayList<String> file1; //liste des personnages dans la file d'attente 1
+	private ArrayList<String> file2; //liste des personnages dans la file d'attente 2
 	
-	private static String nomFicFile1 = "listeFile1.txt";
-	private static String nomFicFile2 = "listeFile2.txt";
+	private static String nomFicFile1 = "listeFile1.txt"; //nom du fichier contenant les personnage de la file 1
+	private static String nomFicFile2 = "listeFile2.txt"; //nom du fichier contenant les personnage de la file 2
 	
-	private boolean checkInProgress = false;
-	private static long timeCheck = 2000; // en milliseconde
+	private boolean checkInProgress = false; //true quand un contrôle est en cours dans le portique
+	private static long timeCheck = 2000; // temps de contrôle au portique (en milliseconde)
 	
-	private static int posFile1X = 100;
+	 //position des persos dans les files d'attente 
+	private static int posFile1X = 100; 
 	private static int posFile1Y = 300;
 	private static int posFile2X = 100;
 	private static int posFile2Y = 600;
+	//position du portique
 	private static int posPortiqueX = 600;
 	private static int posPortiqueY = 400;
+	//position de la sortie (après portique)
 	private static int posOutX = Main.sceneX + 100;
 	private static int posOutY = 400;
 	
@@ -42,7 +45,7 @@ public class Jeu3 extends Jeu{
 		
 		//ajout des personnages
 		if(!Main.conf.getBonus()) { 
-			//ajout des perso dans les objets
+			//pas de bonus, uniquement un personnage dans chaque file
 			Personnage perso1 = new Personnage(Main.conf.getNomPerso1(), posFile1X, posFile1Y, 100, 90, true);
 			Main.view.addToListObjects(perso1);
 			persos.add(perso1);
@@ -50,6 +53,7 @@ public class Jeu3 extends Jeu{
 			Main.view.addToListObjects(perso2);
 			persos.add(perso2);
 		}else {
+			//bonus, la liste des personnage est récupérer des fichiers
 			file1 = new ArrayList<String>();
 			file2 = new ArrayList<String>();
 			//lecture de la premiere file
@@ -118,7 +122,7 @@ public class Jeu3 extends Jeu{
 		
 	}
 	
-
+	//déplace un personnage au portique et commence le contr
 	public void movePersoToCheck(String persoName) {
 		
 		//déplacer le perso au portique
@@ -161,14 +165,10 @@ public class Jeu3 extends Jeu{
 			
 		}
 		
-		//attente de l'arrivée au portique (basé sur le temps de déplacement
+		//attente de l'arrivée au portique (basé sur le temps de déplacement)
 		TimerTask taskAfterMove = new TimerTask() {
 	        public void run() {
 	        	checkSecu(persoName);
-	        	
-	        	if(Main.conf.getBonus()) {
-	        		//Affichage du personnage suivant (si existe)
-	        	}
 	        }
 	    };
 	    
@@ -177,7 +177,7 @@ public class Jeu3 extends Jeu{
 		
 	}
 	
-
+	//un personnage par du portique
 	public void movePersoOut(String persoName) {
 		//déplacer le perso a la sortie
 		Main.view.movePersoTo(persoName, posOutX, posOutY);
@@ -186,6 +186,7 @@ public class Jeu3 extends Jeu{
 		checkConflictOutPortique(persoName);
 	}
 	
+	//simule le contrôle dans le portique
 	public void checkSecu(String persoName) {
 		//check conflit : autre personne déjà au portique
 		checkConflictGoPortique(persoName);
@@ -217,6 +218,7 @@ public class Jeu3 extends Jeu{
 	    
 	}
 	
+	//verifie les conflit quand un personnage entre dans le portique
     public void checkConflictGoPortique(String persoName) {
     	for(Personnage p : persos) {
 			if(p.getX() == posPortiqueX && p.getY() == posPortiqueY && !p.getName().equals(persoName)) {
@@ -227,7 +229,8 @@ public class Jeu3 extends Jeu{
 			}
 		}
     }
-    
+
+	//verifie les conflit quand un personnage sort du portique
     public void checkConflictOutPortique(String persoName) {
     	Personnage p = getPersoByName(persoName);
     	//le perso doit être dans le portique
@@ -241,6 +244,7 @@ public class Jeu3 extends Jeu{
     	}
     }
     
+    //renvoie true si tous les personnages en jeu sont partis (et donc sont passé au contrôle)
     public boolean gagner() {
 		boolean res = true;
 		for(Personnage p : persos) {

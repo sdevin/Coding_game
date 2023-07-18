@@ -32,14 +32,14 @@ public class Jeu2 extends Jeu{
 			//envoie de la position dans le fichier de dialogue
 			line = Main.conf.getNomPerso2() + " " + posPerso2X + " " + posPerso2Y;
 			Main.ficEcr.ecrireFichier(line);
-		}else {
+		}else { //sinon positions récupérées dans le fichier de conf
 			posPersoX = Main.conf.getPosPersoX();
 			posPersoY = Main.conf.getPosPersoY();
 			posPerso2X = Main.conf.getPosPerso2X();
 			posPerso2Y = Main.conf.getPosPerso2Y();
 		}
 		
-		//ajout du perso dans les objets
+		//ajout des personnages
 		Personnage perso = new Personnage(Main.conf.getNomPerso(), Main.convertCasetoPosX(posPersoX), Main.convertCasetoPosY(posPersoY), Main.tailleQuadrillage, 90, true);
 		Main.view.addToListObjects(perso);
 		persos.add(perso);
@@ -48,6 +48,7 @@ public class Jeu2 extends Jeu{
 		persos.add(perso2);
 	}
 
+	//verifie si un personnage peut se déplacer sur la case demandée
 	public void checkConflicts(int newX, int newY) {
 		int caseX = Main.convertPostoCaseX(newX);
 		int caseY = Main.convertPostoCaseY(newY);
@@ -58,7 +59,8 @@ public class Jeu2 extends Jeu{
 			System.out.println("Case demandée : " + caseX + " " + caseY);
 		}
 	}
-	
+
+	//return true si l'objectif est atteint (tous les personnages à l'arrivée)
 	public boolean gagner() {
 		boolean res = true;
 		for(Personnage p : persos) {

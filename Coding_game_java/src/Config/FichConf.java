@@ -4,7 +4,7 @@ package Config;
 public class FichConf {
 	
 
-	protected static String nomFicConf;
+	protected static String nomFicConf; //nom du fichier de configuration
 	
 	public FichConf(){
 		

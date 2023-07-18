@@ -8,12 +8,12 @@ import main.Main;
 
 public class Personnage extends MovingObject{
 	
-	private String name;
-	private String imageBaseName;
+	private String name; //nom du personnage
+	private String imageBaseName; //base du nom de fichier pour son image
 
-	private final String baseNameImg = "/PersoHaut/PersoHaut"; 
-	private static String defaultImgName = "/PersoHaut/PersoHaut11.png"; 
-	private final int nbImgPersos = 7;
+	private static String baseNameImg = "/PersoHaut/PersoHaut"; //base des noms de fichier d'image pour les personnages
+	private static String defaultImgName = "/PersoHaut/PersoHaut11.png";  //image par défaut
+	private static final int nbImgPersos = 7; //nombre d'image de personnages disponnibles
 
 	public Personnage(String name, int x, int y, int width, int angle, boolean isObstacle) throws IOException {
 		//obligatoire en premier, image par défaut

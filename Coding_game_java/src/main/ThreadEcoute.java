@@ -11,41 +11,43 @@ public class ThreadEcoute extends Thread{
 	//adresse de la fifo pour le lien avec le code C
 	private final String fifoAdresse = "/tmp/cmd";
 	
+	//champs pour passer des données (par de param dans un runnable)
 	private String persoName;
 	private String direction;
 	private String texteDefaite;
 	
+	//déplace un personnage dans une direction sur le quadrillage
 	Runnable movePerso = new Runnable() {
 		public void run() {
 			Main.jeu.movePerso(persoName, direction);
 		}
 	};
 
+	//déplace un personnage au portique de sécurité (sce 3)
 	Runnable movePersoToCheck = new Runnable() {
 		public void run() {
 			Main.jeu.movePersoToCheck(persoName);
 		}
 	};
 
+	//fait sortir un personnage du portique de sécurité (sce 3)
 	Runnable movePersoOut = new Runnable() {
 		public void run() {
 			Main.jeu.movePersoOut(persoName);
 		}
 	};
 	
+	//la partie est gagnée
 	Runnable victoire = new Runnable() {
 		public void run() {
-			try {
-				Main.jeu.victoire();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			Main.view.displayVictoire();
 		}
 	};
 	
+	//la partie est perdue
 	Runnable defaite = new Runnable() {
 		public void run() {
-			Main.jeu.defaite(texteDefaite);
+			Main.view.displayDefaite(texteDefaite);
 		}
 	};
 	
@@ -62,46 +64,47 @@ public class ThreadEcoute extends Thread{
 				String instruction = buf.readLine();
 				System.out.println("Commande reçue : " + instruction);
 				String ins[] = instruction.split("\\s");
-				if(ins.length == 1 && ins[0].equals("end")) {
+				if(ins.length == 1 && ins[0].equals("end")) { //signal de fin d'écoute)
 					run = false;
-				}else {
-					if(ins.length != 2) {
-						System.err.println("Commande invalide : " + instruction);	
-					}else{
-						persoName = ins[0];
-						switch(ins[1]) {
-						case "r":
-						case "l":
-						case "u":
-						case "d":
-							direction = ins[1];
-							Platform.runLater(movePerso);
-							break;
-						case "goCheck":
-							Platform.runLater(movePersoToCheck);
-							break;
-						case "outCheck":
-							Platform.runLater(movePersoOut);
-							break;
-						default : 
-							System.err.println("Instruction invalide : " + ins[1]);
-							run = false;
-						}
-					}
-					try {
-						Thread.sleep(1200);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					if(Main.jeu.getConflit()) {
+				}else if(ins.length == 2) {
+					persoName = ins[0];
+					switch(ins[1]) {
+					case "r":
+					case "l":
+					case "u":
+					case "d":
+						direction = ins[1];
+						Platform.runLater(movePerso);
+						break;
+					case "goCheck":
+						Platform.runLater(movePersoToCheck);
+						break;
+					case "outCheck":
+						Platform.runLater(movePersoOut);
+						break;
+					default : 
+						System.err.println("Instruction invalide : " + ins[1]);
 						run = false;
-						texteDefaite = Main.jeu.getTextConflit();
-						Platform.runLater(defaite);
 					}
+				}else{
+					System.err.println("Commande invalide : " + instruction);	
+				}
+				//temps d'attente entre chaque instruction (pour des raisons de synchro)
+				try {
+					Thread.sleep(1200);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				//vérifie si la précédente commande n'a pas générer de conflit (et donc de defaite)
+				if(Main.jeu.getConflit()) {
+					run = false;
+					texteDefaite = Main.jeu.getTextConflit();
+					Platform.runLater(defaite);
 				}
 			}
 			System.out.println("Fin d'écoute");
 			buf.close();
+			//fin de la partie check si gagner ou perdu
 			if(!Main.jeu.getConflit()) {
 				if(Main.jeu.gagner()) {
 					Platform.runLater(victoire);

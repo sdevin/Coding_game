@@ -14,13 +14,14 @@ public class MovingObject extends Object{
 		this.y = this.yInit;
 	}
 
-	
+	//deplace l'object à une nouvelle position (et met à jour l'affichage)
 	public void moveObject(int newX, int newY) {
 		this.x = newX;
 		this.y = newY;
 		view.relocate(this.x, this.y);
 	}
 	
+	//tourne l'objet et met à jour l'affichage ('angle' = nouvelle orientation)
 	public void turnObject(int angle) {
 		this.angle = angle;
 		view.setRotate(angle);
