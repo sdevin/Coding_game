@@ -1,0 +1,19 @@
+But du scénario :
+	servir les clients du bar
+	
+Données initiales :
+	
+Nom du fichier de communication pour les commande : 
+	/tmp/cmd
+	
+Commandes possibles :
+	persoName enter : le client persoName entre dans le bar
+	persoName tip : le client repart content et laisse un pourboire
+	persoName notip : le client repart mecontent et ne laisse pas de pourboire
+	barman produit : le barman doit servir le produit produit au client
+	end : a mettre a la fin du code
+
+Fichier de configuration : menu.txt
+	liste des produits disponnibles au menu (un par ligne)
+
+
