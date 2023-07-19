@@ -9,7 +9,7 @@ public class FichConf3 extends FichConf{
 	
 /*
  * Fichier de conf sous la forme :
- * bonue (boolean) : i true, liste des persos prise depuis fichier, si false 2 persos uniquement
+ * bonus (boolean) : i true, liste des persos prise depuis fichier, si false 2 persos uniquement
  * nomPerso1 (String) : nom du premier personnage (bonus = false)
  * nomPerso2 (String) : nom du second personnage (bonus = false)
  */

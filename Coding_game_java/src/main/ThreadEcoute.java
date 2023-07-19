@@ -14,6 +14,7 @@ public class ThreadEcoute extends Thread{
 	//champs pour passer des données (par de param dans un runnable)
 	private String persoName;
 	private String direction;
+	private String produit;
 	private String texteDefaite;
 	
 	//déplace un personnage dans une direction sur le quadrillage
@@ -34,6 +35,54 @@ public class ThreadEcoute extends Thread{
 	Runnable movePersoOut = new Runnable() {
 		public void run() {
 			Main.jeu.movePersoOut(persoName);
+		}
+	};
+
+	//fait entrer un personnage dans le bar (sce 4)
+	Runnable enterPerso = new Runnable() {
+		public void run() {
+			try {
+				Main.jeu.enterPerso(persoName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	};
+
+	//un personnage laisse un pourboire et part (sce 4)
+	Runnable tipPerso = new Runnable() {
+		public void run() {
+			try {
+				Main.jeu.tipPerso(persoName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	};
+
+	//un personnage laisse un pourboire et part (sce 4)
+	Runnable noTipPerso = new Runnable() {
+		public void run() {
+			try {
+				Main.jeu.noTipPerso(persoName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	};
+
+	//le barman sert le produit (sce 4)
+	Runnable barman = new Runnable() {
+		public void run() {
+			try {
+				Main.jeu.barman(produit);
+			} catch (IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	};
 	
@@ -67,24 +116,38 @@ public class ThreadEcoute extends Thread{
 				if(ins.length == 1 && ins[0].equals("end")) { //signal de fin d'écoute)
 					run = false;
 				}else if(ins.length == 2) {
-					persoName = ins[0];
-					switch(ins[1]) {
-					case "r":
-					case "l":
-					case "u":
-					case "d":
-						direction = ins[1];
-						Platform.runLater(movePerso);
-						break;
-					case "goCheck":
-						Platform.runLater(movePersoToCheck);
-						break;
-					case "outCheck":
-						Platform.runLater(movePersoOut);
-						break;
-					default : 
-						System.err.println("Instruction invalide : " + ins[1]);
-						run = false;
+					if(ins[0].equals("barman")) {
+						produit = ins[1];
+						Platform.runLater(barman);
+					}else {
+						persoName = ins[0];
+						switch(ins[1]) {
+						case "r":
+						case "l":
+						case "u":
+						case "d":
+							direction = ins[1];
+							Platform.runLater(movePerso);
+							break;
+						case "goCheck":
+							Platform.runLater(movePersoToCheck);
+							break;
+						case "outCheck":
+							Platform.runLater(movePersoOut);
+							break;
+						case "enter":
+							Platform.runLater(enterPerso);
+							break;
+						case "tip":
+							Platform.runLater(tipPerso);
+							break;
+						case "notip":
+							Platform.runLater(noTipPerso);
+							break;
+						default : 
+							System.err.println("Instruction invalide : " + ins[1]);
+							run = false;
+						}
 					}
 				}else{
 					System.err.println("Commande invalide : " + instruction);	

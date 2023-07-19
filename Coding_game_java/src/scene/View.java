@@ -210,8 +210,18 @@ public class View extends Pane{
 
 	}
 	
+	public void removeObject(Object object) {
+		listObjects.remove(object);
+		this.getChildren().remove(object.getView());
+	}
+	
 	public void addToListObjects(Object object) {
 		listObjects.add(object);
+	}
+
+	public void addToListObjectsAndDisplay(Object object) {
+		listObjects.add(object);
+		this.getChildren().add(object.getView());
 	}
 	
 	public void addToListLights(Light light) {

@@ -10,8 +10,10 @@ public class EcritureFicher {
 	EcritureFicher(){
 		if(Main.Sce == 1 || Main.Sce == 2) {
 			nomFicEcriture = "/tmp/posPerso";
-		}else {
+		}else if(Main.Sce == 3) {
 			nomFicEcriture = "/tmp/checks";
+		}else if(Main.Sce == 4) {
+			nomFicEcriture = "/tmp/barman";
 		}
 		
 	    try {

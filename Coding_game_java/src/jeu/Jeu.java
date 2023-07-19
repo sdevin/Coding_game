@@ -1,5 +1,6 @@
 package jeu;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import Objects.Personnage;
@@ -108,18 +109,31 @@ public class Jeu {
 	public boolean gagner() {
 		return false;
 	}
-
-
+	
 	public void checkConflicts(int newX, int newY) {
 		
 	}
-	
 
 	public void movePersoOut(String persoName) {
 	}
 	
-
 	public void movePersoToCheck(String persoName) {
+		
+	}
+	
+	public void enterPerso(String persoName) throws IOException {
+		
+	}
+	
+	public void tipPerso(String persoName) throws IOException  {
+		
+	}
+	
+	public void noTipPerso(String persoName) throws IOException  {
+		
+	}
+	
+	public void barman(String produit) throws IOException, InterruptedException  {
 		
 	}
 }

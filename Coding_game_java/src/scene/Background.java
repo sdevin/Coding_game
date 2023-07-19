@@ -23,6 +23,9 @@ public class Background {
 			case 3:
 				setBGSce3();
 				break;
+			case 4:
+				setBGSce4();
+				break;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -94,6 +97,21 @@ public class Background {
 		Object plante2 = new StaticObject("/background/plante.png", Main.tailleQuadrillage*6, Main.tailleQuadrillage*9, Main.tailleQuadrillage, 0, false);
 		Main.view.addToListObjects(plante2);
 		
+	}
+	
+	private void setBGSce4() throws IOException {
+		
+		//ajout mur
+		Object mur = new StaticObject("/background/mur.png", 0, 0, Main.tailleQuadrillage, 0, false);
+		Main.view.addToListObjects(mur);
+		
+		//ajout bar
+		Object bar = new StaticObject("/background/bar.png", Main.xmaxQuad, 0, 2*Main.tailleQuadrillage, 0, false);
+		Main.view.addToListObjects(bar);
+		
+		//ajout menu
+		
+		//ajout deco bar
 	}
 	
 	public ArrayList<Object> getListObjects(){

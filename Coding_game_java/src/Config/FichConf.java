@@ -1,5 +1,6 @@
 package Config;
 
+import java.util.ArrayList;
 
 public class FichConf {
 	
@@ -46,6 +47,10 @@ public class FichConf {
 
 	public boolean isRandPos() {
 		return false;
+	}
+	
+	public ArrayList<String> getMenu() {
+		return null;
 	}
 
 
