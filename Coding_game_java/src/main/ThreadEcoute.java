@@ -111,6 +111,9 @@ public class ThreadEcoute extends Thread{
 			boolean run = true;
 			while(run) {
 				String instruction = buf.readLine();
+				while(instruction == null) {
+					instruction = buf.readLine();
+				}
 				System.out.println("Commande reçue : " + instruction);
 				String ins[] = instruction.split("\\s");
 				if(ins.length == 1 && ins[0].equals("end")) { //signal de fin d'écoute)

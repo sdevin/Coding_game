@@ -16,6 +16,7 @@ int main(int argc, char *argv[]){
 	}else{
 		instruction[0] = '\0';
 		strcat(instruction, argv[1]);
+		strcat(instruction, "\n");
 	}
 
 	if((fd = open(ficCmd, O_WRONLY)) == -1){
