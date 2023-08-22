@@ -40,8 +40,9 @@ public class Main extends Application {
 	* 2 : deux persos (multi-thread)
 	* 3 : passage de la securité (mutex)
 	* 4 : bar (client-serveur)
+	* 5 : piste de décollage (producteur-cosommateur)
 	*/
-	public static int Sce = 4;
+	public static int Sce = 5;
 
 	
 	public void start(Stage stage) throws Exception { 
@@ -65,6 +66,10 @@ public class Main extends Application {
 		case 4 :
 			conf = new FichConf4(); 
 			jeu = new Jeu4(view.getQuadrillage().getCaseMaxX(), view.getQuadrillage().getCaseMaxY());
+			break;
+		case 5 :
+			conf = new FichConf(); 
+			jeu = new Jeu5(view.getQuadrillage().getCaseMaxX(), view.getQuadrillage().getCaseMaxY());
 			break;
 		default :
 			conf = new FichConf();

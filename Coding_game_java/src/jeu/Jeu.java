@@ -136,4 +136,11 @@ public class Jeu {
 	public void barman(String produit) throws IOException, InterruptedException  {
 		
 	}
+	
+	public void addPlane(String refPlane) throws IOException {
+		
+	}
+	
+	public void takeOff(String refPlane) {
+	}
 }

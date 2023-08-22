@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import Objects.Light;
 import Objects.Object;
 import Objects.Personnage;
+import Objects.Plane;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.embed.swing.SwingFXUtils;
@@ -40,8 +41,9 @@ public class View extends Pane{
 	private final Timeline tm;
 	Collection<KeyFrame> frames;
 	
-	private final double timeMove = 1000; //temps de déplacement d'un personnage (d'un point à un autre)
+	private final double timeMove = 1000; //temps de déplacement d'un personnage ou avion (d'un point à un autre)
 	private final int nbImgMove = 4; //nombre d'image constituant un personnage en déplacement
+	private final int nbMovePlane = 10; //nombre de frame lors du déplacement d'un avion
 	
 	
 
@@ -208,6 +210,70 @@ public class View extends Pane{
 		}
 		tm.playFrom(currentTime);
 
+	}
+	
+	//déplace un avion à un point x, y
+	public void movePlaneTo(Plane plane, int x, int y) {
+		Duration currentTime = tm.getCurrentTime();
+		double time = currentTime.toMillis();
+		int xInit = plane.getX();
+		int yInit = plane.getY();
+		
+		//determination de l'angle de direction
+		double deltaX = x-xInit;
+		double deltaY = y-yInit;
+		double angleRad = Math.atan2(deltaX,-deltaY);
+		double angleDeg = Math.toDegrees(angleRad);
+		plane.turnObject((int)angleDeg);
+		
+		for(int i = 1; i <= nbMovePlane; i++) {
+			int newX= xInit + ((x - xInit)*i)/(nbMovePlane);
+			int newY = yInit + ((y - yInit)*i)/(nbMovePlane);
+
+			KeyFrame kfDep = new KeyFrame(Duration.millis(time), actionEvent-> {
+				plane.moveObject(newX, newY);
+			});
+			frames.add(kfDep);
+			time = time + timeMove/nbMovePlane;
+		}
+		tm.playFrom(currentTime);
+		
+	}
+	
+	//déplace un avion en pasant par plusieurs points
+	public void movePlaneFromPoints(Plane plane, int nbPoints, int[] pointX, int[] pointY) {
+		Duration currentTime = tm.getCurrentTime();
+		double time = currentTime.toMillis();
+		int xInit = plane.getX();
+		int yInit = plane.getY();
+		
+		for(int i = 0; i < nbPoints; i++) {
+			//determination de l'angle de direction
+			double deltaX = pointX[i]-xInit;
+			double deltaY = pointY[i]-yInit;
+			double angleRad = Math.atan2(deltaX,-deltaY);
+			double angleDeg = Math.toDegrees(angleRad);
+			
+			KeyFrame kfTurn = new KeyFrame(Duration.millis(time), actionEvent-> {
+				plane.turnObject((int)angleDeg);
+			});
+			frames.add(kfTurn);
+			
+			for(int j = 1; j <= nbMovePlane; j++) {
+				int newX= xInit + ((pointX[i] - xInit)*j)/(nbMovePlane);
+				int newY = yInit + ((pointY[i] - yInit)*j)/(nbMovePlane);
+	
+				KeyFrame kfDep = new KeyFrame(Duration.millis(time), actionEvent-> {
+					plane.moveObject(newX, newY);
+				});
+				frames.add(kfDep);
+				time = time + timeMove/nbMovePlane;
+			}
+			xInit = pointX[i];
+			yInit = pointY[i];
+		}
+		tm.playFrom(currentTime);
+		
 	}
 	
 	public void removeObject(Object object) {

@@ -12,7 +12,7 @@ public class ThreadEcoute extends Thread{
 	private final String fifoAdresse = "/tmp/cmd";
 	
 	//champs pour passer des données (par de param dans un runnable)
-	private String persoName;
+	private String name;
 	private String direction;
 	private String produit;
 	private String texteDefaite;
@@ -20,21 +20,21 @@ public class ThreadEcoute extends Thread{
 	//déplace un personnage dans une direction sur le quadrillage
 	Runnable movePerso = new Runnable() {
 		public void run() {
-			Main.jeu.movePerso(persoName, direction);
+			Main.jeu.movePerso(name, direction);
 		}
 	};
 
 	//déplace un personnage au portique de sécurité (sce 3)
 	Runnable movePersoToCheck = new Runnable() {
 		public void run() {
-			Main.jeu.movePersoToCheck(persoName);
+			Main.jeu.movePersoToCheck(name);
 		}
 	};
 
 	//fait sortir un personnage du portique de sécurité (sce 3)
 	Runnable movePersoOut = new Runnable() {
 		public void run() {
-			Main.jeu.movePersoOut(persoName);
+			Main.jeu.movePersoOut(name);
 		}
 	};
 
@@ -42,7 +42,7 @@ public class ThreadEcoute extends Thread{
 	Runnable enterPerso = new Runnable() {
 		public void run() {
 			try {
-				Main.jeu.enterPerso(persoName);
+				Main.jeu.enterPerso(name);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -54,7 +54,7 @@ public class ThreadEcoute extends Thread{
 	Runnable tipPerso = new Runnable() {
 		public void run() {
 			try {
-				Main.jeu.tipPerso(persoName);
+				Main.jeu.tipPerso(name);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -66,7 +66,7 @@ public class ThreadEcoute extends Thread{
 	Runnable noTipPerso = new Runnable() {
 		public void run() {
 			try {
-				Main.jeu.noTipPerso(persoName);
+				Main.jeu.noTipPerso(name);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -83,6 +83,25 @@ public class ThreadEcoute extends Thread{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	};
+
+	//un nouvel avion arrive (sce 5)
+	Runnable addPlane = new Runnable() {
+		public void run() {
+			try {
+				Main.jeu.addPlane(name);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	};
+
+	//decolage d'un avion (sce 5)
+	Runnable takeOff = new Runnable() {
+		public void run() {
+			Main.jeu.takeOff(name);
 		}
 	};
 	
@@ -123,7 +142,7 @@ public class ThreadEcoute extends Thread{
 						produit = ins[1];
 						Platform.runLater(barman);
 					}else {
-						persoName = ins[0];
+						name = ins[0];
 						switch(ins[1]) {
 						case "r":
 						case "l":
@@ -146,6 +165,12 @@ public class ThreadEcoute extends Thread{
 							break;
 						case "notip":
 							Platform.runLater(noTipPerso);
+							break;
+						case "arrive":
+							Platform.runLater(addPlane);
+							break;
+						case "takeOff":
+							Platform.runLater(takeOff);
 							break;
 						default : 
 							System.err.println("Instruction invalide : " + ins[1]);
