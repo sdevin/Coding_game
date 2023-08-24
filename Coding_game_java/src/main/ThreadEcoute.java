@@ -182,7 +182,7 @@ public class ThreadEcoute extends Thread{
 				}
 				//temps d'attente entre chaque instruction (pour des raisons de synchro)
 				try {
-					Thread.sleep(1200);
+					Thread.sleep((long)(Main.view.getTimeMove() + 200));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
