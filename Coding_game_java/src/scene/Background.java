@@ -110,8 +110,14 @@ public class Background {
 		Main.view.addToListObjects(bar);
 		
 		//ajout menu
+		Object menu = new StaticObject("/background/menu.png", 7*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 6*Main.tailleQuadrillage, 0, false);
+		Main.view.addToListObjects(menu);
 		
 		//ajout deco bar
+		Object table = new StaticObject("/background/table.png", 2*Main.tailleQuadrillage, 6*Main.tailleQuadrillage, 3*Main.tailleQuadrillage, 0, false);
+		Main.view.addToListObjects(table);
+		Object table2 = new StaticObject("/background/table.png", 4*Main.tailleQuadrillage, 0, 3*Main.tailleQuadrillage, 0, false);
+		Main.view.addToListObjects(table2);
 	}
 	
 	public ArrayList<Object> getListObjects(){

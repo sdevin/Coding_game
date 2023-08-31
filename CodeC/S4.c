@@ -27,10 +27,10 @@ void *client(void *arg){
   
   if(num == 1){
   	strcat(name, "toto");
-  	strcat(produit, "biere");
+  	strcat(produit, "frites");
   }else if(num == 2){
   	strcat(name, "tata");
-  	strcat(produit, "jus");
+  	strcat(produit, "salade");
   }
   
     pthread_mutex_lock(&_m);
