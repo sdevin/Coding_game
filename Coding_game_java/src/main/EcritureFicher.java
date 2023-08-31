@@ -14,6 +14,8 @@ public class EcritureFicher {
 			nomFicEcriture = "/tmp/checks";
 		}else if(Main.Sce == 4) {
 			nomFicEcriture = "/tmp/barman";
+		}else if(Main.Sce == 5) {
+			nomFicEcriture = "/tmp/takeoff";
 		}
 		
 	    try {

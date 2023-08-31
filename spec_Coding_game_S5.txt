@@ -1,0 +1,19 @@
+But du scénario :
+	faire decoller tous les avions
+NB : il est impossible de gagner sans les variables conditionnelles (pas de fin propre du consommateur) 
+	
+Données initiales :
+ fichier contenant la liste des avions : planes.txt
+	
+Nom du fichier de communication pour les commande : 
+	/tmp/cmd
+	
+Commandes possibles :
+	planeRef arrive : l'avion arrive dans la file de decollage (ref de l'avion planeRef)
+	planeRef takeoff : l'avion decolle (ref de l'avion planeRef)
+	end : a mettre a la fin du code
+
+Nom du fichier de communication pour la fin du contrôle :
+	/tmp/takeoff
+Chaque fois qu'un avion finit de decoller (et libère la piste) une nouvelle ligne y est ecrite avec la reference de l'avion.
+

@@ -22,12 +22,12 @@ public class Jeu5 extends Jeu{
 	private static int posStartX = -2*Main.tailleQuadrillage; 
 	private static int posStartY = 5*Main.tailleQuadrillage; 
 	//positions des avions dans la file
-	private static int[] posQueueX = {6*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 4*Main.tailleQuadrillage, 3*Main.tailleQuadrillage, 2*Main.tailleQuadrillage};
+	private static int[] posQueueX = {7*Main.tailleQuadrillage, 6*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 4*Main.tailleQuadrillage, 3*Main.tailleQuadrillage};
 	private static int[] posQueueY = {5*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 5*Main.tailleQuadrillage};
 	//points de passage pour le décollage des avions
-	private static int nbPointTakeOff = 7;
-	private static int[] takeOffX = {7*Main.tailleQuadrillage, 8*Main.tailleQuadrillage, 7*Main.tailleQuadrillage, 6*Main.tailleQuadrillage, 4*Main.tailleQuadrillage, 1*Main.tailleQuadrillage, -5*Main.tailleQuadrillage};
-	private static int[] takeOffY = {4*Main.tailleQuadrillage, 3*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage};
+	private static int nbPointTakeOff = 8;
+	private static int[] takeOffX = {(int)(8.5*Main.tailleQuadrillage), 9*Main.tailleQuadrillage, (int)(9.5*Main.tailleQuadrillage), 9*Main.tailleQuadrillage, (int)(8.5*Main.tailleQuadrillage), 8*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, -5*Main.tailleQuadrillage};
+	private static int[] takeOffY = {(int)(4.5*Main.tailleQuadrillage), 4*Main.tailleQuadrillage,(int)(3.5*Main.tailleQuadrillage), 3*Main.tailleQuadrillage, (int)(2.5*Main.tailleQuadrillage), 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage};
 	
 	
 	public Jeu5(int caseMaxX, int caseMaxY) throws IOException {	

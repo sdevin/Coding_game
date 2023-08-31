@@ -1,2 +1,8 @@
 biere
 jus
+soda
+vin
+tapas
+burger
+frites
+salade

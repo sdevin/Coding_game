@@ -17,7 +17,7 @@ public class FichConf4 extends FichConf{
 	private ArrayList<String> menu;
 	
 	//paramètres par défaut
-	private static ArrayList<String> defaultMenu= new ArrayList<String>(Arrays.asList("biere", "jus"));;
+	private static ArrayList<String> defaultMenu= new ArrayList<String>(Arrays.asList("biere", "jus", "soda", "vin", "tapas", "burger", "frites", "salade"));;
 
 	public FichConf4() throws IOException{
 			
