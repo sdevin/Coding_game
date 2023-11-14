@@ -42,7 +42,7 @@ public class Main extends Application {
 	* 4 : bar (client-serveur)
 	* 5 : piste de décollage (producteur-cosommateur)
 	*/
-	public static int Sce = 5;
+	public static int Sce = 1;
 
 	
 	public void start(Stage stage) throws Exception { 
