@@ -19,15 +19,15 @@ public class Jeu5 extends Jeu{
 	private boolean takeoff; //true si un avion utilise la piste de décollage, false si la piste est libre
 	
 	//position des avions avant arrivée
-	private static int posStartX = -2*Main.tailleQuadrillage; 
-	private static int posStartY = 5*Main.tailleQuadrillage; 
+	private static int posStartX = -Main.tailleQuadrillage; 
+	private static int posStartY = (int)(5.7*Main.tailleQuadrillage); 
 	//positions des avions dans la file
-	private static int[] posQueueX = {7*Main.tailleQuadrillage, 6*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 4*Main.tailleQuadrillage, 3*Main.tailleQuadrillage};
-	private static int[] posQueueY = {5*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 5*Main.tailleQuadrillage};
+	private static int[] posQueueX = {(int)(4.5*Main.tailleQuadrillage), (int)(3.5*Main.tailleQuadrillage), (int)(2.5*Main.tailleQuadrillage), (int)(1.5*Main.tailleQuadrillage), (int)(0.5*Main.tailleQuadrillage)};
+	private static int[] posQueueY = {(int)(4.8*Main.tailleQuadrillage), (int)(5.7*Main.tailleQuadrillage), (int)(5.7*Main.tailleQuadrillage), (int)(5.7*Main.tailleQuadrillage), (int)(5.7*Main.tailleQuadrillage)};
 	//points de passage pour le décollage des avions
 	private static int nbPointTakeOff = 8;
-	private static int[] takeOffX = {(int)(8.5*Main.tailleQuadrillage), 9*Main.tailleQuadrillage, (int)(9.5*Main.tailleQuadrillage), 9*Main.tailleQuadrillage, (int)(8.5*Main.tailleQuadrillage), 8*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, -5*Main.tailleQuadrillage};
-	private static int[] takeOffY = {(int)(4.5*Main.tailleQuadrillage), 4*Main.tailleQuadrillage,(int)(3.5*Main.tailleQuadrillage), 3*Main.tailleQuadrillage, (int)(2.5*Main.tailleQuadrillage), 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage};
+	private static int[] takeOffX = {(int)(4.6*Main.tailleQuadrillage), (int)(4.8*Main.tailleQuadrillage), (int)(5*Main.tailleQuadrillage), (int)(5.3*Main.tailleQuadrillage), (int)(5.6*Main.tailleQuadrillage), 6*Main.tailleQuadrillage, 7*Main.tailleQuadrillage, 15*Main.tailleQuadrillage};
+	private static int[] takeOffY = {(int)(4.5*Main.tailleQuadrillage), (int)(4.2*Main.tailleQuadrillage),(int)(4*Main.tailleQuadrillage), (int)(3.8*Main.tailleQuadrillage), (int)(3.7*Main.tailleQuadrillage), (int)(3.7*Main.tailleQuadrillage), (int)(3.7*Main.tailleQuadrillage), (int)(3.7*Main.tailleQuadrillage)};
 	
 	
 	public Jeu5(int caseMaxX, int caseMaxY) throws IOException {	
@@ -52,7 +52,18 @@ public class Jeu5 extends Jeu{
 			textConflit = " File d'attente pleine !";
 		}else {
 			//deplacement de l'avion à la dernière place libre
-			Main.view.movePlaneTo(plane, posQueueX[nbPlaneQueue], posQueueY[nbPlaneQueue]);
+			//construction points de passage
+			int nbPoints = queueSize-nbPlaneQueue;
+			int[] arriveX = new int[nbPoints];
+			int[] arriveY = new int[nbPoints];
+			int j = 0;
+			for(int i = (queueSize-1); i >= nbPlaneQueue;i--) {
+				arriveX[j] = posQueueX[i];
+				arriveY[j] = posQueueY[i];
+				j++;
+			}
+			Main.view.movePlaneFromPoints(plane, nbPoints, arriveX, arriveY);
+			//Main.view.movePlaneTo(plane, posQueueX[nbPlaneQueue], posQueueY[nbPlaneQueue]);
 			
 			//ajout dans la file
 			queue[nbPlaneQueue] = plane;
@@ -79,18 +90,17 @@ public class Jeu5 extends Jeu{
 				//deplacement avion décollage
 				takeoff = true;
 				Main.view.movePlaneFromPoints(plane, nbPointTakeOff, takeOffX, takeOffY);
-				
-				//décalage des avions dans la file
-				for(int i = 1; i < nbPlaneQueue; i++) {
-					Main.view.movePlaneTo(queue[i], posQueueX[i-1], posQueueY[i-1]);
-					queue[i-1] = queue[i];
-				}
-				nbPlaneQueue --;
 
 				//simulation temps de décollage
 				TimerTask taskAfterTakeOff = new TimerTask() {
 			        public void run() {
-			        	takeoff = false;
+						//décalage des avions dans la file
+						for(int i = 1; i < nbPlaneQueue; i++) {
+							Main.view.movePlaneTo(queue[i], posQueueX[i-1], posQueueY[i-1]);
+							queue[i-1] = queue[i];
+						}
+						nbPlaneQueue --;
+						takeoff = false;
 			    		//envoie signal decolage ok
 			        	try {
 			            	String line = refPlane + "\n";
@@ -101,8 +111,9 @@ public class Jeu5 extends Jeu{
 			    		}
 			        }
 				};
-				Timer timer = new Timer("Timer move");
+				Timer timer = new Timer("Timer queue");
 				timer.schedule(taskAfterTakeOff, (long)(Main.view.getTimeMove()*nbPointTakeOff));
+				
 				
 			}
 		}

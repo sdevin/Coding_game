@@ -34,6 +34,8 @@ public class Background {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	//background pour les scénarios 1 et 2
@@ -125,7 +127,7 @@ public class Background {
 	
 	private void setBGSce5() throws IOException {
 		
-		//ajout piste attente
+		/*/ajout piste attente
 		Object piste = new StaticObject("/background/piste.png", 0, 5*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
 		Main.view.addToListObjects(piste);
 		Object piste2 = new StaticObject("/background/piste.png", 2*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
@@ -149,7 +151,11 @@ public class Background {
 		Object pisteD3 = new StaticObject("/background/piste.png", 4*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
 		Main.view.addToListObjects(pisteD3);
 		Object pisteD4 = new StaticObject("/background/piste.png", 6*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(pisteD4);
+		Main.view.addToListObjects(pisteD4);*/
+		
+
+		Object piste = new StaticObject("/background/piste_dec.png", 0, 3*Main.tailleQuadrillage, Main.sceneX, 0, false);
+		Main.view.addToListObjects(piste);
 	}
 	
 	public ArrayList<Object> getListObjects(){

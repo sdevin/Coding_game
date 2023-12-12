@@ -79,8 +79,6 @@ if((fdTO = open(ficTO, O_RDONLY)) == -1){
 	
 	indLect = (indLect+1)%TAILLE_FILE;
 
-	// signalement place libre dans la file
-	sem_post(&_Slibre);
 	
 	//attente piste libre
 	int nb;
@@ -88,6 +86,8 @@ if((fdTO = open(ficTO, O_RDONLY)) == -1){
 	//printf("read : %s\n", buf);
 	}
 	printf("read : %s\n", buf);
+	// signalement place libre dans la file
+	sem_post(&_Slibre);
 
   } // fin boucle
 

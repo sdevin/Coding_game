@@ -15,7 +15,7 @@ int main(){
 	int nb, fdE, fdS;
 	char nomPerso[20];
 	int x, y;
-	int xGoal = 8;
+	int xGoal = 10;
 	int yGoal = 7;
 	
 	if((fdE = open(ficEntree, O_RDONLY)) == -1){

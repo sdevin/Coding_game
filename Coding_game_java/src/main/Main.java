@@ -30,10 +30,7 @@ public class Main extends Application {
 	public static final int yminQuad = 0;
 	public static final int xmaxQuad = 11*tailleQuadrillage;
 	public static final int ymaxQuad = 10*tailleQuadrillage;
-	//couleur du background
-	private final int bgR = 185;
-	private final int bgG = 216;
-	private final int bgB = 219;
+	
 	
 	/* version du scénario 
 	* 1 : un perso à amener à l'arrivée
@@ -42,7 +39,12 @@ public class Main extends Application {
 	* 4 : bar (client-serveur)
 	* 5 : piste de décollage (producteur-cosommateur)
 	*/
-	public static int Sce = 1;
+	public static int Sce = 5;
+
+	//couleur du background
+	private int bgR = 185;
+	private int bgG = 216;
+	private int bgB = 219;
 
 	
 	public void start(Stage stage) throws Exception { 
@@ -80,6 +82,12 @@ public class Main extends Application {
 		
 
 		//parametrage couleur fond
+		//bg different sce 5
+		if(Sce == 5) {
+			bgR = 230;
+			bgG = 255;
+			bgB = 230;
+		}
 		Color bgColor = Color.rgb(bgR, bgG, bgB);
 		
 		scene = new Scene(view, sceneX, sceneY, bgColor); 
