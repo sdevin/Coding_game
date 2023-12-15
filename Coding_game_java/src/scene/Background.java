@@ -126,36 +126,12 @@ public class Background {
 	}
 	
 	private void setBGSce5() throws IOException {
-		
-		/*/ajout piste attente
-		Object piste = new StaticObject("/background/piste.png", 0, 5*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(piste);
-		Object piste2 = new StaticObject("/background/piste.png", 2*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(piste2);
-		Object piste3 = new StaticObject("/background/piste.png", 4*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(piste3);
-		Object piste4 = new StaticObject("/background/piste.png", 6*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(piste4);
-		
-		//ajout virage
-		Object virage = new StaticObject("/background/virage.png", 8*Main.tailleQuadrillage, 4*Main.tailleQuadrillage, (int)(2.25*Main.tailleQuadrillage), 180, false);
-		Main.view.addToListObjects(virage);
-		Object virage2 = new StaticObject("/background/virage.png", 8*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, (int)(2.25*Main.tailleQuadrillage), 90, false);
-		Main.view.addToListObjects(virage2);
-		
-		//ajout piste decollage
-		Object pisteD = new StaticObject("/background/piste.png", 0, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(pisteD);
-		Object pisteD2 = new StaticObject("/background/piste.png", 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(pisteD2);
-		Object pisteD3 = new StaticObject("/background/piste.png", 4*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(pisteD3);
-		Object pisteD4 = new StaticObject("/background/piste.png", 6*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(pisteD4);*/
-		
 
 		Object piste = new StaticObject("/background/piste_dec.png", 0, 3*Main.tailleQuadrillage, Main.sceneX, 0, false);
 		Main.view.addToListObjects(piste);
+
+		Object tour = new StaticObject("/background/tour_controle.png", 8*Main.tailleQuadrillage, 7*Main.tailleQuadrillage, 4*Main.tailleQuadrillage, 0, false);
+		Main.view.addToListObjects(tour);
 	}
 	
 	public ArrayList<Object> getListObjects(){

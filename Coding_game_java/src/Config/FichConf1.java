@@ -80,7 +80,7 @@ public class FichConf1 extends FichConf{
 			    	  try {
 			    		  x = Integer.parseInt(line);
 				    	  if(x <= Main.view.getQuadrillage().getCaseMaxX() && x > 0) {
-					    	  posPersoX = posPersoXDefault;
+					    	  posPersoX = x;
 				    	  }else {
 					    	  System.err.println("Fichier de configuration : position initiale hors limite (X)!");
 					    	  posPersoX = posPersoXDefault;
@@ -103,7 +103,7 @@ public class FichConf1 extends FichConf{
 			    	  try {
 			    		  y = Integer.parseInt(line);
 				    	  if(y <= Main.view.getQuadrillage().getCaseMaxY() && y > 0) {
-					    	  posPersoY = posPersoYDefault;
+					    	  posPersoY = y;
 				    	  }else {
 					    	  System.err.println("Fichier de configuration : position initiale hors limite (Y)!");
 					    	  posPersoY = posPersoYDefault;
