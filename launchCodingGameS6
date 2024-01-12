@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ ! -e /tmp/cmd ]
+then
+    mkfifo /tmp/cmd
+fi
+java -jar -Djdk.gtk.version=2 Coding_game_S6.jar &
+./ipc_afficheur
