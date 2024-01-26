@@ -1,5 +1,7 @@
 #!/bin/bash
 
+trap "rm /tmp/cmd" EXIT
+
 if [ ! -e /tmp/cmd ]
 then
     mkfifo /tmp/cmd

@@ -1,7 +1,10 @@
 #!/bin/bash
 
+trap "rm /tmp/cmd /tmp/posPerso" EXIT
+
 if [ ! -e /tmp/cmd ]
 then
     mkfifo /tmp/cmd
 fi
 java -jar -Djdk.gtk.version=2 Coding_game_S1.jar 
+

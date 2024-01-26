@@ -39,7 +39,7 @@ public class Main extends Application {
 	* 4 : bar (client-serveur)
 	* 5 : piste de décollage (producteur-cosommateur)
 	*/
-	public static int Sce = 3;
+	public static int Sce = 5;
 
 	//couleur du background
 	private int bgR = 185;
@@ -97,7 +97,6 @@ public class Main extends Application {
 		
 	}
 
-
 	public static void main(String[] args) throws IOException {
 
 		ficEcr = new EcritureFicher();
@@ -107,9 +106,7 @@ public class Main extends Application {
 		tEc.start();
 		
 		launch(args); 	
-		
 		ficEcr.closeFichier();
-		
 		
 	}
 	
