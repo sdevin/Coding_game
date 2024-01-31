@@ -20,7 +20,7 @@ public class FichConf3 extends FichConf{
 	private String nomPerso2;
 	
 	//paramètres par défaut
-	private static boolean defaultBonus = true;
+	private static boolean defaultBonus = false;
 	private static String defaultNomPerso1 = "toto";
 	private static String defaultNomPerso2 = "tata";
 

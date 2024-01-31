@@ -198,7 +198,7 @@ public class Jeu3 extends Jeu{
 			        	//envoie signal de fin de check
 			        	try {
 				        	String line = persoName + "\n";
-							Main.ficEcr.ecrireFichier(line);
+							Main.ficEcr.ecrireFichier(persoName, line);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

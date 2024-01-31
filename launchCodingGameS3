@@ -1,6 +1,6 @@
 #!/bin/bash
 
-trap "rm /tmp/cmd /tmp/checks" EXIT
+trap "rm /tmp/cmd /tmp/check_toto /tmp/check_tata" EXIT
 
 if [ ! -e /tmp/cmd ]
 then

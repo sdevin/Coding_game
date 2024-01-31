@@ -2,75 +2,57 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include <stdio.h>
 #include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+
 #include <pthread.h>
-//envoi
 
-int totoPosX = 3;
-int totoPosY = 4;
-int tataPosX = 5;
-int tataPosY = 6;
-int goalX = 8;
-int goalY = 7;
-
-int fd;
+#define FIC_S "/tmp/cmd"
 	
+FILE *fdS;
 	
 void* foncThread(void* persoName){
 
 	char* name = (char*)persoName;
-	int x, y;
-	if(strcmp(name, "toto") == 0){
-		x = totoPosX;
-		y = totoPosY;
-	}else if(strcmp(name, "tata") == 0){
-		x = tataPosX;
-		y = tataPosY;
-	}else{
+	FILE *fdE;
+	char ficEntree[30], buf[512];
+
+	if((strcmp(name, "toto") != 0) && (strcmp(name, "tata") != 0)){
+		
 		printf("Wrong name : %s \n !", name);
 	}
-	
-	while(x != goalX){
-		char instruction[20];
-		instruction[0] = '\0';
-		strcat(instruction, name);
-		if(x < goalX){
-			strcat(instruction, " r\n");
-			x++;
-		}else{
-			strcat(instruction, " l\n");
-			x--;
-		}
-		write(fd, instruction, strlen(instruction));
-		printf("message envoyé : %s", instruction, strlen(instruction));
-	}
-	
-	while(y != goalY){
-		char instruction[20];
-		instruction[0] = '\0';
-		strcat(instruction, name);
-		if(y < goalY){
-			strcat(instruction, " d\n");
-			y++;
-		}else{
-			strcat(instruction, " u\n");
-			y--;
-		}
-		write(fd, instruction, strlen(instruction));
-		printf("message envoyé : %s", instruction);
+
+	sprintf(ficEntree, "listeCmd_%s.txt", name);
+
+	printf("fichier entree : %s\n", ficEntree);
+
+	if((fdE = fopen(ficEntree, "r")) == NULL){
+		perror("ouverture fichier de commandes");
+		return 0;
 	}
 
-}
+
+	while (fgets(buf, 512, fdE) != NULL){
+		printf("lu :%s:", buf);
+		fputs(buf, fdS);
+		fflush(fdS);
+		sleep(1);
+	}
+	
+	fclose(fdE);
+
+	printf("Fin trajet %s\n", name);
+	
+	return NULL;
+	}
+
+
 
 int main(){
 
-	char* fifo = "/tmp/cmd";
+	char instruction[20];
 	
-	if((fd = open(fifo, O_WRONLY)) == -1){
+	if((fdS = fopen(FIC_S, "a")) == NULL){
 		perror("ouverture fifo ecriture : ");
 		return 0;
 	};
@@ -85,11 +67,11 @@ int main(){
 	pthread_join(idThread1, NULL);
 	pthread_join(idThread2, NULL);
 	
-	char instruction[20];
-	strcat(instruction, "end\n");
-	write(fd, instruction, strlen(instruction));
 	
-	close(fd);
+	strcpy(instruction, "end\n");
+	fputs(instruction, fdS);
+	
+	fclose(fdS);
 
 	return 0;
 
