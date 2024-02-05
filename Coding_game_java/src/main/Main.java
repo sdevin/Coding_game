@@ -39,7 +39,7 @@ public class Main extends Application {
 	* 4 : bar (client-serveur)
 	* 5 : piste de décollage (producteur-cosommateur)
 	*/
-	public static int Sce = 3;
+	public static int Sce = 4;
 
 	//couleur du background
 	private int bgR = 185;

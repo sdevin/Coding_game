@@ -160,7 +160,7 @@ public class ThreadEcoute extends Thread{
 						case "enter":
 							Platform.runLater(enterPerso);
 							break;
-						case "tip":
+						case "pay":
 							Platform.runLater(tipPerso);
 							break;
 						case "notip":
