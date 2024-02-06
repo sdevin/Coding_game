@@ -137,6 +137,9 @@ public class ThreadEcoute extends Thread{
 				String ins[] = instruction.split("\\s");
 				if(ins.length == 1 && ins[0].equals("end")) { //signal de fin d'écoute)
 					run = false;
+				}else if(ins.length == 3 && ins[1].equals("commande")) { //S4
+					produit = ins[2];
+					Platform.runLater(barman);
 				}else if(ins.length == 2) {
 					if(ins[0].equals("barman")) {
 						produit = ins[1];
