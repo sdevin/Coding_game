@@ -46,7 +46,7 @@ void *client(void *arg){
     
     instruction[0] = '\0';
     strcat(instruction, name);
-    strcat(instruction, " tip\n");
+    strcat(instruction, " pay\n");
     write(fd, instruction, strlen(instruction));
     printf("%s", instruction);
     pthread_mutex_unlock(&_m);
@@ -59,7 +59,9 @@ void *serveur(void *arg){
   while (1) { 
     sem_wait(&_Srequete);
     instruction[0] = '\0';
-    strcat(instruction, "barman");
+    strcat(instruction, "client");
+    strcat(instruction, " ");
+    strcat(instruction, "commande");
     strcat(instruction, " ");
     strcat(instruction,  _produit);
     strcat(instruction, "\n");
