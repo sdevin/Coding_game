@@ -3,8 +3,13 @@ package jeu;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Config.FichConf;
+import Objects.Light;
+import Objects.Object;
 import Objects.Personnage;
+import main.EcritureFicher;
 import main.Main;
+import scene.Background;
 
 public class Jeu {
 
@@ -13,13 +18,23 @@ public class Jeu {
 	protected String textDefaite; // texte à indiquer en cas de defaite (but non atteint)
 	protected int caseMaxX; //nb de case du quadrillage (axe x)
 	protected int caseMaxY; //nb de case du quadrillage (axe y)
+	protected Background bg;
+	protected EcritureFicher ficEcr;
 
 	protected ArrayList<Personnage> persos; //liste des personnages impliqués dans le scenario
+	protected ArrayList<Object> listMovingObjects;//liste des objets dynamiques impliqués dans le scenario
+	protected ArrayList<Object> listStaticObjects;//liste des objets statiques impliqués dans le scenario
+
+	protected FichConf conf;
 	
-	public Jeu(int caseMaxX, int caseMaxY) {	
+	public Jeu(int caseMaxX, int caseMaxY) {
+		bg = new Background(); 	
+		ficEcr = new EcritureFicher();
 		this.caseMaxX = caseMaxX;
 		this.caseMaxY = caseMaxY;
 		persos = new ArrayList<Personnage>();
+		listMovingObjects = new ArrayList<Object>();
+		listStaticObjects = new ArrayList<Object>();
 		this.conflit = false;
 
 	}
@@ -69,6 +84,27 @@ public class Jeu {
 	public ArrayList<Personnage> getPersos() {
 		return persos;
 	}
+	
+	public ArrayList<Object> getMovingObjects() {
+		return listMovingObjects;
+	}
+	
+	public ArrayList<Object> getStaticObjects() {
+		return listStaticObjects;
+	}
+
+	public void addMovingObject(Object object) {
+		this.listMovingObjects.add(object);
+	}
+	
+	public void addStaticObject(Object object) {
+		this.listStaticObjects.add(object);
+	}
+	
+	public void addMovingObjectAndDisplay(Object object) {
+		this.listMovingObjects.add(object);
+		Main.view.displayObject(object);
+	}
 
 
 	public void addPerso(Personnage perso) {
@@ -103,6 +139,15 @@ public class Jeu {
 	public int getCaseMaxY() {
 		return caseMaxY;
 	}
+
+	public Background getBackground() {
+		return bg;
+	}
+
+	public EcritureFicher getFicEcr() {
+		return ficEcr;
+	}
+
 
 	
 	//super methodes
@@ -143,4 +188,7 @@ public class Jeu {
 	
 	public void takeOff(String refPlane) {
 	}
+    public Light getPortiqueLight() {
+    	return null;
+    }
 }

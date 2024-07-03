@@ -2,7 +2,6 @@ package Objects;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import main.Main;
 
 public class Light{
 
@@ -27,7 +26,6 @@ public class Light{
 		this.getCircle().setRadius(this.getWidth()/2);
 		this.getCircle().setFill(this.getColor());
 		
-		Main.view.addToListLights(this);
 	}
 
 	public Color getColor() {

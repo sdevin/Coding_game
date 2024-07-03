@@ -7,6 +7,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+import javafx.scene.control.Button;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,12 +21,13 @@ import Objects.Plane;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import java.util.ArrayList;
 import java.util.Collection;
 
 
@@ -34,8 +36,6 @@ public class View extends Pane{
 	private GraphicsContext gc;
 	private Canvas canvas;
 	
-	private ArrayList<Object> listObjects;
-	private ArrayList<Light> listLights;
 	private Quadrillage quad;
 	
 	private final Timeline tm;
@@ -51,11 +51,10 @@ public class View extends Pane{
 		super();
 		this.tm = new Timeline();
 		frames = tm.getKeyFrames();
-		listObjects = new ArrayList<Object>();
-		listLights = new ArrayList<Light>();
 		canvas=new Canvas(Main.sceneX,Main.sceneY);
 		gc = canvas.getGraphicsContext2D();
 		quad = new Quadrillage(Main.tailleQuadrillage, Main.xminQuad, Main.yminQuad, Main.xmaxQuad, Main.ymaxQuad);
+		
 		
 	}
 
@@ -63,7 +62,7 @@ public class View extends Pane{
 		
 		
 		//ajout du fond
-		for(Object o : Main.bg.getListObjects()) {
+		for(Object o : Main.jeu.getBackground().getListObjects()) {
 			this.getChildren().add(o.getView());
 		}
 		
@@ -79,16 +78,35 @@ public class View extends Pane{
 		Main.jeu.setCaseMaxY(quad.getCaseMaxY());
 		
 		//ajout des objets à la scène
-		for(Object o : listObjects) {
+		for(Object o : Main.jeu.getStaticObjects()) {
 			this.getChildren().add(o.getView());
 		}
-		//ajout des lumieres à la scène
-		for(Light l : listLights) {
-			this.getChildren().add(l.getCircle());
+		for(Object o : Main.jeu.getMovingObjects()) {
+			this.getChildren().add(o.getView());
 		}
+		for(Object o : Main.jeu.getPersos()) {
+			this.getChildren().add(o.getView());
+		}
+		
+		if(Main.Sce == 3) {
+			this.getChildren().add(Main.jeu.getPortiqueLight().getCircle());
+		}
+		
+		//ajout bouton reset
+		Button buttonReset = new Button("Relancer partie");
+		this.getChildren().add(buttonReset);
+		buttonReset.setOnAction (handlerButton);
 
 	}
 	
+	EventHandler handlerButton = new EventHandler<ActionEvent>() {
+		 public void handle(ActionEvent event) {
+		// on a cliqué sur le bouton
+		 System.out.println("Reset demandé !");
+		 // on signifie à JavaFX que rien d’autre n’a besoin de cet événement
+		 event.consume();
+		 }
+		};
 
 	//déplace un personnage à un point x, y
 	public void movePersoTo(String persoName, int x, int y) {
@@ -276,24 +294,14 @@ public class View extends Pane{
 		
 	}
 	
-	public void removeObject(Object object) {
-		listObjects.remove(object);
+	public void removeObjectView(Object object) {
 		this.getChildren().remove(object.getView());
 	}
-	
-	public void addToListObjects(Object object) {
-		listObjects.add(object);
-	}
 
-	public void addToListObjectsAndDisplay(Object object) {
-		listObjects.add(object);
+	public void addObjectView(Object object) {
 		this.getChildren().add(object.getView());
 	}
 	
-	public void addToListLights(Light light) {
-		listLights.add(light);
-	}
-
 	//configure l'image view d'un object
 	public void displayObject(Object object) {
 

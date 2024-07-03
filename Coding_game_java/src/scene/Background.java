@@ -42,33 +42,33 @@ public class Background {
 	private void setBGSce1() throws IOException {
 		//ajout comptoirs d'enregistrement
 		Object compt1 = new StaticObject("/background/comtoir_bas.png", Main.xmaxQuad, 0, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(compt1);
+		listObjects.add(compt1);
 		Object compt2 = new StaticObject("/background/comtoir_haut.png", Main.xmaxQuad, Main.tailleQuadrillage*3, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(compt2);
+		listObjects.add(compt2);
 		Object compt3 = new StaticObject("/background/comtoir_bas.png", Main.xmaxQuad, Main.tailleQuadrillage*5, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(compt3);
+		listObjects.add(compt3);
 		Object compt4 = new StaticObject("/background/comtoir_haut.png", Main.xmaxQuad, Main.tailleQuadrillage*8, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(compt4);
+		listObjects.add(compt4);
 		
 		//ajouts tapis bagages
 		Object tapis1 = new StaticObject("/background/tapis.png", Main.xmaxQuad, Main.tailleQuadrillage*2, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(tapis1);
+		listObjects.add(tapis1);
 		Object tapis2 = new StaticObject("/background/tapis.png", Main.xmaxQuad, Main.tailleQuadrillage*7, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(tapis2);
+		listObjects.add(tapis2);
 		
 		//ajout mur entrée
 		Object mur = new StaticObject("/background/mur.png", 0, 0, Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(mur);
+		listObjects.add(mur);
 		
 		//ajout banc
 		Object banc = new StaticObject("/background/banc.png", Main.tailleQuadrillage/2, Main.tailleQuadrillage*6, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(banc);
+		listObjects.add(banc);
 		
 		//ajout plantes
 		Object plante = new StaticObject("/background/plante.png", Main.tailleQuadrillage/2, 0, Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(plante);
+		listObjects.add(plante);
 		Object plante2 = new StaticObject("/background/plante.png", Main.tailleQuadrillage/2, Main.tailleQuadrillage, Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(plante2);
+		listObjects.add(plante2);
 	}
 	
 	//background pour lee scénario 3
@@ -76,31 +76,31 @@ public class Background {
 
 		//ajout mur sortie
 		Object murS = new StaticObject("/background/mur.png", Main.sceneX - Main.tailleQuadrillage, 0, Main.tailleQuadrillage, 180, false);
-		Main.view.addToListObjects(murS);
+		listObjects.add(murS);
 		//ajout murs entrée
 		Object murE1 = new StaticObject("/background/mur250.png", 0, 0, Main.tailleQuadrillage/2, 180, false);
-		Main.view.addToListObjects(murE1);
+		listObjects.add(murE1);
 		Object murE2 = new StaticObject("/background/mur100.png", 0, 9*Main.tailleQuadrillage/2, Main.tailleQuadrillage/2, 180, false);
-		Main.view.addToListObjects(murE2);
+		listObjects.add(murE2);
 		Object murE3 = new StaticObject("/background/mur250.png", 0, 15*Main.tailleQuadrillage/2, Main.tailleQuadrillage/2, 180, false);
-		Main.view.addToListObjects(murE3);
+		listObjects.add(murE3);
 		
 
 		//ajout bancs
 		Object banc = new StaticObject("/background/banc.png", Main.tailleQuadrillage*3, -Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 90, false);
-		Main.view.addToListObjects(banc);
+		listObjects.add(banc);
 		Object banc2 = new StaticObject("/background/banc.png", Main.tailleQuadrillage*8, -Main.tailleQuadrillage, 2*Main.tailleQuadrillage, 90, false);
-		Main.view.addToListObjects(banc2);
+		listObjects.add(banc2);
 		Object banc3 = new StaticObject("/background/banc.png", Main.tailleQuadrillage*3, Main.tailleQuadrillage*7, 2*Main.tailleQuadrillage, 270, false);
-		Main.view.addToListObjects(banc3);
+		listObjects.add(banc3);
 		Object banc4 = new StaticObject("/background/banc.png", Main.tailleQuadrillage*8, Main.tailleQuadrillage*7, 2*Main.tailleQuadrillage, 270, false);
-		Main.view.addToListObjects(banc4);
+		listObjects.add(banc4);
 
 		//ajout plantes
 		Object plante = new StaticObject("/background/plante.png", Main.tailleQuadrillage*6, 0, Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(plante);
+		listObjects.add(plante);
 		Object plante2 = new StaticObject("/background/plante.png", Main.tailleQuadrillage*6, Main.tailleQuadrillage*9, Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(plante2);
+		listObjects.add(plante2);
 		
 	}
 	
@@ -108,30 +108,30 @@ public class Background {
 		
 		//ajout mur
 		Object mur = new StaticObject("/background/mur.png", 0, 0, Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(mur);
+		listObjects.add(mur);
 		
 		//ajout bar
 		Object bar = new StaticObject("/background/bar.png", Main.xmaxQuad, 0, 2*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(bar);
+		listObjects.add(bar);
 		
 		//ajout menu
 		Object menu = new StaticObject("/background/menu.png", 7*Main.tailleQuadrillage, 5*Main.tailleQuadrillage, 6*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(menu);
+		listObjects.add(menu);
 		
 		//ajout deco bar
 		Object table = new StaticObject("/background/table.png", 2*Main.tailleQuadrillage, 6*Main.tailleQuadrillage, 3*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(table);
+		listObjects.add(table);
 		Object table2 = new StaticObject("/background/table.png", 4*Main.tailleQuadrillage, 0, 3*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(table2);
+		listObjects.add(table2);
 	}
 	
 	private void setBGSce5() throws IOException {
 
 		Object piste = new StaticObject("/background/piste_dec.png", 0, 3*Main.tailleQuadrillage, Main.sceneX, 0, false);
-		Main.view.addToListObjects(piste);
+		listObjects.add(piste);
 
 		Object tour = new StaticObject("/background/tour_controle.png", 8*Main.tailleQuadrillage, 7*Main.tailleQuadrillage, 4*Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(tour);
+		listObjects.add(tour);
 	}
 	
 	public ArrayList<Object> getListObjects(){

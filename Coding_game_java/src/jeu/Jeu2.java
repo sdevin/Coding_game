@@ -3,6 +3,7 @@ package jeu;
 import java.io.IOException;
 import java.util.Random;
 
+import Config.FichConf2;
 import Objects.Personnage;
 import Objects.StaticObject;
 import main.Main;
@@ -12,39 +13,38 @@ public class Jeu2 extends Jeu{
 	
 	public Jeu2(int caseMaxX, int caseMaxY) throws IOException {	
 		super(caseMaxX, caseMaxY);
+		conf = new FichConf2(); 
 		textDefaite = "Arrivée non atteinte pour tous";
 
 		//ajout de l'arrivée (comptoir 3, case 10-7)
 		goal = new StaticObject("/vide.png", Main.convertCasetoPosX(10), Main.convertCasetoPosY(7), Main.tailleQuadrillage, 0, false);
-		Main.view.addToListObjects(goal);
+		listStaticObjects.add(goal);
 		
 		//si position du personnage aléatoire, tirage de cette position
 		int posPersoX, posPersoY,posPerso2X, posPerso2Y;
-		if(Main.conf.isRandPos()) { 
+		if(conf.isRandPos()) { 
 			Random r = new Random();
 			posPersoX = r.nextInt(caseMaxX)+1;
 			posPersoY = r.nextInt(caseMaxY)+1;
 			//envoie de la position dans le fichier de dialogue
-			String line = Main.conf.getNomPerso() + " " + posPersoX + " " + posPersoY;
-			Main.ficEcr.ecrireFichier(line);
+			String line = conf.getNomPerso() + " " + posPersoX + " " + posPersoY;
+			ficEcr.ecrireFichier(line);
 			posPerso2X = r.nextInt(caseMaxX)+1;
 			posPerso2Y = r.nextInt(caseMaxY)+1;
 			//envoie de la position dans le fichier de dialogue
-			line = Main.conf.getNomPerso2() + " " + posPerso2X + " " + posPerso2Y;
-			Main.ficEcr.ecrireFichier(line);
+			line = conf.getNomPerso2() + " " + posPerso2X + " " + posPerso2Y;
+			ficEcr.ecrireFichier(line);
 		}else { //sinon positions récupérées dans le fichier de conf
-			posPersoX = Main.conf.getPosPersoX();
-			posPersoY = Main.conf.getPosPersoY();
-			posPerso2X = Main.conf.getPosPerso2X();
-			posPerso2Y = Main.conf.getPosPerso2Y();
+			posPersoX = conf.getPosPersoX();
+			posPersoY = conf.getPosPersoY();
+			posPerso2X = conf.getPosPerso2X();
+			posPerso2Y = conf.getPosPerso2Y();
 		}
 		
 		//ajout des personnages
-		Personnage perso = new Personnage(Main.conf.getNomPerso(), Main.convertCasetoPosX(posPersoX), Main.convertCasetoPosY(posPersoY), Main.tailleQuadrillage, 90, true);
-		Main.view.addToListObjects(perso);
+		Personnage perso = new Personnage(conf.getNomPerso(), Main.convertCasetoPosX(posPersoX), Main.convertCasetoPosY(posPersoY), Main.tailleQuadrillage, 90, true);
 		persos.add(perso);
-		Personnage perso2 = new Personnage(Main.conf.getNomPerso2(), Main.convertCasetoPosX(posPerso2X), Main.convertCasetoPosY(posPerso2Y), Main.tailleQuadrillage, 90, true);
-		Main.view.addToListObjects(perso2);
+		Personnage perso2 = new Personnage(conf.getNomPerso2(), Main.convertCasetoPosX(posPerso2X), Main.convertCasetoPosY(posPerso2Y), Main.tailleQuadrillage, 90, true);
 		persos.add(perso2);
 	}
 

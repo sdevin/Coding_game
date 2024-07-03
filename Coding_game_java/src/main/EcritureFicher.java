@@ -10,7 +10,7 @@ public class EcritureFicher {
 	private FileWriter fw_tata;
 	
 	
-	EcritureFicher(){
+	public EcritureFicher(){
 		if(Main.Sce == 1 || Main.Sce == 2) {
 			nomFicEcriture = "/tmp/posPerso";
 		}else if(Main.Sce == 3) {

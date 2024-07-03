@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Config.FichConf;
 import Objects.Plane;
 import main.Main;
 
@@ -32,6 +33,7 @@ public class Jeu5 extends Jeu{
 	
 	public Jeu5(int caseMaxX, int caseMaxY) throws IOException {	
 		super(caseMaxX, caseMaxY);
+		conf = new FichConf(); 
 		planes = new ArrayList<Plane>();
 		textDefaite = "Tous les avions n'ont pas décollé !";
 		queue = new Plane[queueSize];
@@ -42,8 +44,8 @@ public class Jeu5 extends Jeu{
 	public void addPlane(String refPlane) throws IOException {
 		//création d'un nouvel avion
 		Plane plane = new Plane(refPlane, posStartX, posStartY, Main.tailleQuadrillage, 0, true);
-		Main.view.addToListObjectsAndDisplay(plane);
 		planes.add(plane);
+		Main.view.addObjectView(plane);
 		
 		//verification si la file n'est pas pleine
 		if(nbPlaneQueue == queueSize) {
@@ -104,7 +106,7 @@ public class Jeu5 extends Jeu{
 			    		//envoie signal decolage ok
 			        	try {
 			            	String line = refPlane + "\n";
-			    			Main.ficEcr.ecrireFichier(line);
+			    			ficEcr.ecrireFichier(line);
 			    		} catch (IOException e) {
 			    			// TODO Auto-generated catch block
 			    			e.printStackTrace();

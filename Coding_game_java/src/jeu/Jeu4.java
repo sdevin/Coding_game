@@ -2,6 +2,7 @@ package jeu;
 
 import java.io.IOException;
 
+import Config.FichConf4;
 import Objects.Object;
 import Objects.Personnage;
 import Objects.StaticObject;
@@ -33,6 +34,7 @@ public class Jeu4 extends Jeu{
 	
 	public Jeu4(int caseMaxX, int caseMaxY) throws IOException {	
 		super(caseMaxX, caseMaxY);
+		conf = new FichConf4(); 
 		textDefaite = "Tous les personnages n'ont pas eu leur commande !";
 		
 	}
@@ -41,8 +43,9 @@ public class Jeu4 extends Jeu{
 	public void enterPerso(String persoName) throws IOException {
 		//creation du personnage et ajout à la liste
 		Personnage perso = new Personnage(persoName, posAttX, posAttY, Main.tailleQuadrillage, 90, true);
-		Main.view.addToListObjectsAndDisplay(perso);
 		persos.add(perso);
+		Main.view.addObjectView(perso);
+		
 		
 		//trouver place libre au bar et deplacement au bar
 		if(bar1free) {
@@ -61,12 +64,14 @@ public class Jeu4 extends Jeu{
 	public void tipPerso(String persoName) throws IOException {
 		//faire disparaitre le produit du bar
 		if(objectOnBar) {
-			Main.view.removeObject(onBar);
+			listMovingObjects.remove(onBar);
+			Main.view.removeObjectView(onBar);
 		}
 		
 		//mettre de l'argent sur le bar
 		StaticObject tip = new StaticObject("/tip.png", posObjBarX, posObjBarY, Main.tailleQuadrillage/2, 0, false);
-		Main.view.addToListObjectsAndDisplay(tip);
+		listMovingObjects.add(tip);
+		Main.view.addObjectView(tip);
 		objectOnBar = true;
 		onBar = tip;
 		
@@ -98,25 +103,27 @@ public class Jeu4 extends Jeu{
 	public void barman(String produit) throws IOException, InterruptedException  {
 		//si quelque chose sur le bar, le fait disparaitre (ancien tip)
 		if(objectOnBar) {
-			Main.view.removeObject(onBar);
+			listMovingObjects.remove(onBar);
+			Main.view.removeObjectView(onBar);
 		}		
 		
 		//attente (simulation service)
 		Thread.sleep(timeService);
 		
 		//verifie que le produit est au menu
-		if(Main.conf.getMenu().contains(produit)) {
+		if(conf.getMenu().contains(produit)) {
 			//faire apparaitre le produit sur le bar
 			String productImg = "/produits/" + produit + ".png";
 			StaticObject prod = new StaticObject(productImg, posObjBarX, posObjBarY, Main.tailleQuadrillage/2, 0, false);
-			Main.view.addToListObjectsAndDisplay(prod);
+			listMovingObjects.add(prod);
+			Main.view.addObjectView(prod);
 			objectOnBar = true;
 			onBar = prod;
 			
 			//ecrire dans le fichier de comm que le produit est servit
 	    	try {
 	        	String line = produit + "\n";
-				Main.ficEcr.ecrireFichier(line);
+				ficEcr.ecrireFichier(line);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

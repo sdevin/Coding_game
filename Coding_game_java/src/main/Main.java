@@ -4,12 +4,10 @@ import jeu.*;
 
 import java.io.IOException;
 
-import Config.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import scene.Background;
 import scene.View;
 
 public class Main extends Application {
@@ -17,10 +15,7 @@ public class Main extends Application {
 
 	private Scene scene;
 	public static Jeu jeu;
-	public static FichConf conf;
-	public static EcritureFicher ficEcr;
 	public static View view;
-	public static Background bg;
 	
 	//format de la fenêtre et du quadrillage
 	public static final int tailleQuadrillage = 50;
@@ -51,30 +46,23 @@ public class Main extends Application {
 		stage.setTitle("Coding Game V1"); 
 
 		view = new View();
-		bg = new Background(); 
 		switch(Sce) {
 		case 1 :
-			conf = new FichConf1();
 			jeu = new Jeu1(view.getQuadrillage().getCaseMaxX(), view.getQuadrillage().getCaseMaxY());
 			break;
 		case 2 :
-			conf = new FichConf2();
 			jeu = new Jeu2(view.getQuadrillage().getCaseMaxX(), view.getQuadrillage().getCaseMaxY());
 			break;
 		case 3 :
-			conf = new FichConf3();
 			jeu = new Jeu3(view.getQuadrillage().getCaseMaxX(), view.getQuadrillage().getCaseMaxY());
 			break;
 		case 4 :
-			conf = new FichConf4(); 
 			jeu = new Jeu4(view.getQuadrillage().getCaseMaxX(), view.getQuadrillage().getCaseMaxY());
 			break;
 		case 5 :
-			conf = new FichConf(); 
 			jeu = new Jeu5(view.getQuadrillage().getCaseMaxX(), view.getQuadrillage().getCaseMaxY());
 			break;
 		default :
-			conf = new FichConf();
 			jeu = new Jeu(view.getQuadrillage().getCaseMaxX(), view.getQuadrillage().getCaseMaxY());
 		}
 		
@@ -99,14 +87,12 @@ public class Main extends Application {
 
 	public static void main(String[] args) throws IOException {
 
-		ficEcr = new EcritureFicher();
 
 		//lancement du thread d'ecoute du code C
 		ThreadEcoute tEc = new ThreadEcoute();
 		tEc.start();
 		
 		launch(args); 	
-		ficEcr.closeFichier();
 		
 	}
 	
