@@ -3,9 +3,9 @@ package jeu;
 import java.io.IOException;
 
 import Config.FichConf4;
+import Objects.MovingObject;
 import Objects.Object;
 import Objects.Personnage;
-import Objects.StaticObject;
 import main.Main;
 
 public class Jeu4 extends Jeu{
@@ -35,8 +35,12 @@ public class Jeu4 extends Jeu{
 	public Jeu4(int caseMaxX, int caseMaxY) throws IOException {	
 		super(caseMaxX, caseMaxY);
 		conf = new FichConf4(); 
-		textDefaite = "Tous les personnages n'ont pas eu leur commande !";
-		
+		textDefaite = "Tous les personnages \n n'ont pas eu leur commande !";
+		setMovingContext();
+	}
+	
+	public void setMovingContext() throws IOException {
+		super.setMovingContext();
 	}
 	
 	//un client entre dans le bar
@@ -69,7 +73,7 @@ public class Jeu4 extends Jeu{
 		}
 		
 		//mettre de l'argent sur le bar
-		StaticObject tip = new StaticObject("/tip.png", posObjBarX, posObjBarY, Main.tailleQuadrillage/2, 0, false);
+		MovingObject tip = new MovingObject("/tip.png", posObjBarX, posObjBarY, Main.tailleQuadrillage/2, 0, false);
 		listMovingObjects.add(tip);
 		Main.view.addObjectView(tip);
 		objectOnBar = true;
@@ -114,7 +118,7 @@ public class Jeu4 extends Jeu{
 		if(conf.getMenu().contains(produit)) {
 			//faire apparaitre le produit sur le bar
 			String productImg = "/produits/" + produit + ".png";
-			StaticObject prod = new StaticObject(productImg, posObjBarX, posObjBarY, Main.tailleQuadrillage/2, 0, false);
+			MovingObject prod = new MovingObject(productImg, posObjBarX, posObjBarY, Main.tailleQuadrillage/2, 0, false);
 			listMovingObjects.add(prod);
 			Main.view.addObjectView(prod);
 			objectOnBar = true;

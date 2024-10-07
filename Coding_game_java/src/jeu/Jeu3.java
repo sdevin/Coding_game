@@ -50,8 +50,17 @@ public class Jeu3 extends Jeu{
 	public Jeu3(int caseMaxX, int caseMaxY) throws IOException {	
 		super(caseMaxX, caseMaxY);
 		conf = new FichConf3(); 
-		textDefaite = "Tous les personnages ne sont pas passés";
+		textDefaite = "Tous les personnages \n ne sont pas passés";
 		
+		//ajout du portique
+		portique = new StaticObject("/portique.png", posPortiqueX, posPortiqueY-Main.tailleQuadrillage/2, Main.tailleQuadrillage, 0, false);
+		listStaticObjects.add(portique);
+
+		setMovingContext();
+	}
+	
+	public void setMovingContext() throws IOException {
+		super.setMovingContext();
 		//ajout des personnages
 		if(!conf.getBonus()) { 
 			//pas de bonus, uniquement un personnage dans chaque file
@@ -122,13 +131,10 @@ public class Jeu3 extends Jeu{
 			
 		}
 		
-		//ajout du portique
-		portique = new StaticObject("/portique.png", posPortiqueX, posPortiqueY-Main.tailleQuadrillage/2, Main.tailleQuadrillage, 0, false);
-		listStaticObjects.add(portique);
 		//ajout de la lumière du portique
 		portiqueLight = new Light(Color.GREEN, (posPortiqueX + Main.tailleQuadrillage/2), (posPortiqueY + Main.tailleQuadrillage/2), Main.tailleQuadrillage/2);
 		
-		
+				
 	}
 	
 	//déplace un personnage au portique et commence le controle

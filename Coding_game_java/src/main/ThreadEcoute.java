@@ -123,91 +123,101 @@ public class ThreadEcoute extends Thread{
 		try {
 			
 			//connection a la fifo avec le code C
-			System.out.println("Attente d'instruction");
 			FileReader fifo = new FileReader(fifoAdresse);
 			BufferedReader buf = new BufferedReader(fifo);
 			
-			boolean run = true;
-			while(run) {
-				String instruction = buf.readLine();
-				while(instruction == null) {
-					instruction = buf.readLine();
-				}
-				System.out.println("Commande reçue : " + instruction);
-				String ins[] = instruction.split("\\s");
-				if(ins.length == 1 && ins[0].equals("end")) { //signal de fin d'écoute)
-					run = false;
-				}else if(ins.length == 3 && ins[1].equals("commande")) { //S4
-					produit = ins[2];
-					Platform.runLater(barman);
-				}else if(ins.length == 2) {
-					if(ins[0].equals("barman")) {
-						produit = ins[1];
-						Platform.runLater(barman);
-					}else {
-						name = ins[0];
-						switch(ins[1]) {
-						case "r":
-						case "l":
-						case "u":
-						case "d":
-							direction = ins[1];
-							Platform.runLater(movePerso);
-							break;
-						case "goCheck":
-							Platform.runLater(movePersoToCheck);
-							break;
-						case "outCheck":
-							Platform.runLater(movePersoOut);
-							break;
-						case "enter":
-							Platform.runLater(enterPerso);
-							break;
-						case "pay":
-							Platform.runLater(tipPerso);
-							break;
-						case "notip":
-							Platform.runLater(noTipPerso);
-							break;
-						case "arrive":
-							Platform.runLater(addPlane);
-							break;
-						case "takeOff":
-							Platform.runLater(takeOff);
-							break;
-						default : 
-							System.err.println("Instruction invalide : " + ins[1]);
-							run = false;
-						}
+			while(Main.run) {
+				System.out.println("Attente d'instruction");
+				while(Main.jeu.getGameOn()) {
+					String instruction = buf.readLine();
+					while(instruction == null) {
+						instruction = buf.readLine();
 					}
-				}else{
-					System.err.println("Commande invalide : " + instruction);	
+					System.out.println("Commande reçue : " + instruction);
+					String ins[] = instruction.split("\\s");
+					if(ins.length == 1 && ins[0].equals("end")) { //signal de fin d'écoute)
+						Main.jeu.setGameOn(false);
+					}else if(ins.length == 3 && ins[1].equals("commande")) { //S4
+						produit = ins[2];
+						Platform.runLater(barman);
+					}else if(ins.length == 2) {
+						if(ins[0].equals("barman")) {
+							produit = ins[1];
+							Platform.runLater(barman);
+						}else {
+							name = ins[0];
+							switch(ins[1]) {
+							case "r":
+							case "l":
+							case "u":
+							case "d":
+								direction = ins[1];
+								Platform.runLater(movePerso);
+								break;
+							case "goCheck":
+								Platform.runLater(movePersoToCheck);
+								break;
+							case "outCheck":
+								Platform.runLater(movePersoOut);
+								break;
+							case "enter":
+								Platform.runLater(enterPerso);
+								break;
+							case "pay":
+								Platform.runLater(tipPerso);
+								break;
+							case "notip":
+								Platform.runLater(noTipPerso);
+								break;
+							case "arrive":
+								Platform.runLater(addPlane);
+								break;
+							case "takeOff":
+								Platform.runLater(takeOff);
+								break;
+							default : 
+								System.err.println("Instruction invalide : " + ins[1]);
+								Main.jeu.setGameOn(false);
+							}
+						}
+					}else{
+						System.err.println("Commande invalide : " + instruction);	
+					}
+					//temps d'attente entre chaque instruction (pour des raisons de synchro)
+					try {
+						Thread.sleep((long)(Main.view.getTimeMove() + 200));
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					//vérifie si la précédente commande n'a pas générer de conflit (et donc de defaite)
+					if(Main.jeu.getConflit()) {
+						Main.jeu.setGameOn(false);
+						texteDefaite = Main.jeu.getTextConflit();
+						Platform.runLater(defaite);
+					}
 				}
-				//temps d'attente entre chaque instruction (pour des raisons de synchro)
-				try {
-					Thread.sleep((long)(Main.view.getTimeMove() + 200));
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				System.out.println("Fin de partie");
+				//fin de la partie check si gagner ou perdu
+				if(!Main.jeu.getConflit()) {
+					if(Main.jeu.gagner()) {
+						Platform.runLater(victoire);
+					}else {
+						texteDefaite = Main.jeu.getTextDefaite();
+						Platform.runLater(defaite);
+					}
 				}
-				//vérifie si la précédente commande n'a pas générer de conflit (et donc de defaite)
-				if(Main.jeu.getConflit()) {
-					run = false;
-					texteDefaite = Main.jeu.getTextConflit();
-					Platform.runLater(defaite);
+				while(!Main.jeu.getGameOn()) {
+					//a remplacer idealement par attente passive
+					//a investiger : ne marche pas sans le sleep...
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			System.out.println("Fin d'écoute");
 			buf.close();
-			//fin de la partie check si gagner ou perdu
-			if(!Main.jeu.getConflit()) {
-				if(Main.jeu.gagner()) {
-					Platform.runLater(victoire);
-				}else {
-					texteDefaite = Main.jeu.getTextDefaite();
-					Platform.runLater(defaite);
-				}
-			}
-			
 		}catch(IOException e) {
 			System.err.println("erreur fifo  : " + e.toString());
 		}

@@ -7,6 +7,7 @@ import Config.FichConf;
 import Objects.Light;
 import Objects.Object;
 import Objects.Personnage;
+import Objects.Plane;
 import main.EcritureFicher;
 import main.Main;
 import scene.Background;
@@ -20,6 +21,7 @@ public class Jeu {
 	protected int caseMaxY; //nb de case du quadrillage (axe y)
 	protected Background bg;
 	protected EcritureFicher ficEcr;
+	protected boolean gameOn;
 
 	protected ArrayList<Personnage> persos; //liste des personnages impliqués dans le scenario
 	protected ArrayList<Object> listMovingObjects;//liste des objets dynamiques impliqués dans le scenario
@@ -32,11 +34,16 @@ public class Jeu {
 		ficEcr = new EcritureFicher();
 		this.caseMaxX = caseMaxX;
 		this.caseMaxY = caseMaxY;
+		listStaticObjects = new ArrayList<Object>();
+
+	}
+	
+	//met en place les paramètres du jeu qui vont évoluer dans le temps
+	public void setMovingContext() throws IOException {
 		persos = new ArrayList<Personnage>();
 		listMovingObjects = new ArrayList<Object>();
-		listStaticObjects = new ArrayList<Object>();
 		this.conflit = false;
-
+		this.gameOn = true;
 	}
 	
 	//déplace un personnage (nommé 'persoName') d'une case dans la direction 'direction'
@@ -79,6 +86,15 @@ public class Jeu {
 			}
 		}
 		return null;
+	}
+	
+	
+	public boolean getGameOn() {
+		return gameOn;
+	}
+	
+	public void setGameOn(boolean gameOn) {
+		this.gameOn = gameOn;
 	}
 	
 	public ArrayList<Personnage> getPersos() {
@@ -187,6 +203,10 @@ public class Jeu {
 	}
 	
 	public void takeOff(String refPlane) {
+	}
+	
+	public ArrayList<Plane> getPlanes() {
+		return null;
 	}
     public Light getPortiqueLight() {
     	return null;

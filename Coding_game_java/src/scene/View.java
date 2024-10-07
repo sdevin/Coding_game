@@ -41,6 +41,9 @@ public class View extends Pane{
 	private final Timeline tm;
 	Collection<KeyFrame> frames;
 	
+	Text textPrincipal; //gagné ou perdu
+	Text textSecondaire; //raison defaite
+	
 	private final double timeMove = 1000; //temps de déplacement d'un personnage ou avion (d'un point à un autre)
 	private final int nbImgMove = 4; //nombre d'image constituant un personnage en déplacement
 	private final int nbMovePlane = 10; //nombre de frame lors du déplacement d'un avion
@@ -54,10 +57,13 @@ public class View extends Pane{
 		canvas=new Canvas(Main.sceneX,Main.sceneY);
 		gc = canvas.getGraphicsContext2D();
 		quad = new Quadrillage(Main.tailleQuadrillage, Main.xminQuad, Main.yminQuad, Main.xmaxQuad, Main.ymaxQuad);
+		//background transparent
+		this.setBackground(new javafx.scene.layout.Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
 		
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	public void launchView() throws IOException {
 		
 		
@@ -81,6 +87,17 @@ public class View extends Pane{
 		for(Object o : Main.jeu.getStaticObjects()) {
 			this.getChildren().add(o.getView());
 		}
+		
+		displayAllMoving();
+		
+		//ajout bouton reset
+		Button buttonReset = new Button("Relancer partie");
+		this.getChildren().add(buttonReset);
+		buttonReset.setOnAction (handlerButton);
+
+	}
+	
+	private void displayAllMoving() {
 		for(Object o : Main.jeu.getMovingObjects()) {
 			this.getChildren().add(o.getView());
 		}
@@ -91,18 +108,52 @@ public class View extends Pane{
 		if(Main.Sce == 3) {
 			this.getChildren().add(Main.jeu.getPortiqueLight().getCircle());
 		}
-		
-		//ajout bouton reset
-		Button buttonReset = new Button("Relancer partie");
-		this.getChildren().add(buttonReset);
-		buttonReset.setOnAction (handlerButton);
-
 	}
 	
+	private void removeAllMoving() {
+		for(Object o : Main.jeu.getMovingObjects()) {
+			this.getChildren().remove(o.getView());
+		}
+		for(Object o : Main.jeu.getPersos()) {
+			this.getChildren().remove(o.getView());
+		}
+		
+		if(Main.Sce == 3) {
+			this.getChildren().remove(Main.jeu.getPortiqueLight().getCircle());
+		}else if(Main.Sce == 5) {
+			for(Object o : Main.jeu.getPlanes()) {
+				this.getChildren().remove(o.getView());
+			}
+		}
+		
+		
+	}
+	
+	private void removeText() {
+		this.getChildren().remove(textPrincipal);
+		this.getChildren().remove(textSecondaire);
+		
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
 	EventHandler handlerButton = new EventHandler<ActionEvent>() {
-		 public void handle(ActionEvent event) {
+	public void handle(ActionEvent event) {
 		// on a cliqué sur le bouton
 		 System.out.println("Reset demandé !");
+		removeAllMoving();
+		removeText();
+		 //reset de tout le context du jeu
+		 try {
+			Main.jeu.setMovingContext();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 //mis a jour vue
+		displayAllMoving();
+		 //relance thread ecoute
+		 Main.jeu.setGameOn(true);
 		 // on signifie à JavaFX que rien d’autre n’a besoin de cet événement
 		 event.consume();
 		 }
@@ -339,35 +390,35 @@ public class View extends Pane{
 	//affichage du texte en cas de victoire
 	public void displayVictoire() {
 		
-		Text text = new Text("C'est gagné !");
-		text.setFont(new Font("Arial", Main.tailleQuadrillage));
-		text.setFill(Color.BLACK);
-		text.setX(Main.sceneX/5);
-		text.setY(Main.sceneY/2);
-		text.setTextAlignment(TextAlignment.CENTER);
-		this.getChildren().add(text);
+		textPrincipal = new Text("C'est gagné !");
+		textPrincipal.setFont(new Font("Arial", Main.tailleQuadrillage));
+		textPrincipal.setFill(Color.BLACK);
+		textPrincipal.setX(Main.sceneX/5);
+		textPrincipal.setY(Main.sceneY/2);
+		textPrincipal.setTextAlignment(TextAlignment.CENTER);
+		this.getChildren().add(textPrincipal);
 	}
 	
 	//affichage du texte en cas de defaite
 	public void displayDefaite(String texteDefaite) {
 
 		//affichage perdu
-		Text text = new Text("Perdu...");
-		text.setFont(new Font("Arial", Main.tailleQuadrillage));
-		text.setTextAlignment(TextAlignment.CENTER);
-		text.setFill(Color.BLACK);
-		text.setX(Main.sceneX/3);
-		text.setY(Main.sceneY/2-Main.tailleQuadrillage);
-		this.getChildren().add(text);
+		textPrincipal = new Text("Perdu...");
+		textPrincipal.setFont(new Font("Arial", Main.tailleQuadrillage));
+		textPrincipal.setTextAlignment(TextAlignment.CENTER);
+		textPrincipal.setFill(Color.BLACK);
+		textPrincipal.setX(Main.sceneX/3);
+		textPrincipal.setY(Main.sceneY/2-Main.tailleQuadrillage);
+		this.getChildren().add(textPrincipal);
 		System.out.println("Perdu...");
 		//affichage raison defaite
-		Text text2 = new Text(texteDefaite);
-		text2.setFont(new Font("Arial", Main.tailleQuadrillage/2));
-		text2.setTextAlignment(TextAlignment.CENTER);
-		text2.setFill(Color.BLACK);
-		text2.setX(Main.sceneX/4);
-		text2.setY(Main.sceneY/2 + Main.tailleQuadrillage);
-		this.getChildren().add(text2);
+		textSecondaire = new Text(texteDefaite);
+		textSecondaire.setFont(new Font("Arial", Main.tailleQuadrillage/2));
+		textSecondaire.setTextAlignment(TextAlignment.CENTER);
+		textSecondaire.setFill(Color.BLACK);
+		textSecondaire.setX(Main.sceneX/4);
+		textSecondaire.setY(Main.sceneY/2 + Main.tailleQuadrillage);
+		this.getChildren().add(textSecondaire);
 	}
 
 	public Quadrillage getQuadrillage() {

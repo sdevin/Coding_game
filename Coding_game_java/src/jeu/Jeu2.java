@@ -14,12 +14,18 @@ public class Jeu2 extends Jeu{
 	public Jeu2(int caseMaxX, int caseMaxY) throws IOException {	
 		super(caseMaxX, caseMaxY);
 		conf = new FichConf2(); 
-		textDefaite = "Arrivée non atteinte pour tous";
+		textDefaite = "Arrivée non atteinte \n pour tous";
 
 		//ajout de l'arrivée (comptoir 3, case 10-7)
 		goal = new StaticObject("/vide.png", Main.convertCasetoPosX(10), Main.convertCasetoPosY(7), Main.tailleQuadrillage, 0, false);
 		listStaticObjects.add(goal);
-		
+
+		setMovingContext();
+	}
+	
+	public void setMovingContext() throws IOException {
+		super.setMovingContext();
+
 		//si position du personnage aléatoire, tirage de cette position
 		int posPersoX, posPersoY,posPerso2X, posPerso2Y;
 		if(conf.isRandPos()) { 

@@ -16,6 +16,7 @@ public class Main extends Application {
 	private Scene scene;
 	public static Jeu jeu;
 	public static View view;
+	public static boolean run = true;
 	
 	//format de la fenêtre et du quadrillage
 	public static final int tailleQuadrillage = 50;
@@ -34,7 +35,7 @@ public class Main extends Application {
 	* 4 : bar (client-serveur)
 	* 5 : piste de décollage (producteur-cosommateur)
 	*/
-	public static int Sce = 4;
+	public static int Sce = 5;
 
 	//couleur du background
 	private int bgR = 185;
@@ -93,7 +94,7 @@ public class Main extends Application {
 		tEc.start();
 		
 		launch(args); 	
-		
+		run = false;
 	}
 	
 

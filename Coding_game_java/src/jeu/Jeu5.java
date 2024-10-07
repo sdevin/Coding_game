@@ -34,8 +34,16 @@ public class Jeu5 extends Jeu{
 	public Jeu5(int caseMaxX, int caseMaxY) throws IOException {	
 		super(caseMaxX, caseMaxY);
 		conf = new FichConf(); 
+		textDefaite = "Tous les avions \n n'ont pas décollé !";
+		
+		setMovingContext();
+	}
+	
+
+	public void setMovingContext() throws IOException {
+		super.setMovingContext();
+
 		planes = new ArrayList<Plane>();
-		textDefaite = "Tous les avions n'ont pas décollé !";
 		queue = new Plane[queueSize];
 		nbPlaneQueue = 0;
 		takeoff = false;

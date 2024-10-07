@@ -20,7 +20,13 @@ public class Jeu1 extends Jeu{
 		//ajout de l'arrivée (comptoir 3, case 10-7)
 		goal = new StaticObject("/vide.png", Main.convertCasetoPosX(10), Main.convertCasetoPosY(7), Main.tailleQuadrillage, 0, false);
 		listStaticObjects.add(goal);
-		
+
+		setMovingContext();
+	}
+
+	public void setMovingContext() throws IOException {
+		super.setMovingContext();
+
 		//si position du personnage aléatoire, tirage de cette position
 		int posPersoX, posPersoY;
 		if(conf.isRandPos()) { 
@@ -38,7 +44,9 @@ public class Jeu1 extends Jeu{
 		//ajout du personnage
 		Personnage perso = new Personnage(conf.getNomPerso(), Main.convertCasetoPosX(posPersoX), Main.convertCasetoPosY(posPersoY), Main.tailleQuadrillage, 90, true);
 		persos.add(perso);
+		
 	}
+	
 
 	//verifie si un personnage peut se déplacer sur la case demandée
 	public void checkConflicts(int newX, int newY) {
